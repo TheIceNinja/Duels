@@ -32,8 +32,9 @@ public class ArenaListeners implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-
         Player player = event.getPlayer();
+        if (!getArena().isInGame(player)) return;
+        if (player == null) return;
         if (getArena().isPlaying(player)) {
             arena.removePlayer(player);
 
