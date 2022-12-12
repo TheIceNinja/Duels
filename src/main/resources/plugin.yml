@@ -1,0 +1,8 @@
+name: Duels
+main: net.theiceninja.duels.DuelsPlugin
+api-version: 1.18
+version: 1.0.0
+author: TheIceNinja
+commands:
+  duelpanel:
+    description: admin command to create arenas and more
