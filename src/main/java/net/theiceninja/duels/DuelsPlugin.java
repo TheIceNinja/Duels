@@ -1,8 +1,6 @@
 package net.theiceninja.duels;
 
-import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
-import net.theiceninja.duels.arena.manager.ArenaState;
 import net.theiceninja.duels.commands.DuelPanelCommand;
 import net.theiceninja.duels.listeners.GuiListener;
 import org.bukkit.plugin.java.JavaPlugin;

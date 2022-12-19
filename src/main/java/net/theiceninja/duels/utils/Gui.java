@@ -47,7 +47,7 @@ public class Gui {
     }
 
     public static Inventory spectatingGUI(Arena arena) {
-
+        // soon..
         Inventory inventory = createInv(9, "&8מצב צופה");
 
         for (UUID playerUUID : arena.getPlayers()) {

@@ -27,19 +27,15 @@ public class ArenaListeners implements Listener {
     @Getter
     private final Arena arena;
 
-    private final ArenaManager arenaManager;
-
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        if (!getArena().isInGame(player)) return;
-        if (player == null) return;
         if (getArena().isPlaying(player)) {
             arena.removePlayer(player);
 
         } else if (getArena().isSpectating(player)) {
-            getArena().removeSpectator(player, Optional.of(getArena()));
+            getArena().removeSpectator(player, Optional.ofNullable(getArena()));
 
         }
     }
@@ -128,7 +124,7 @@ public class ArenaListeners implements Listener {
 
                 if (getArena().isSpectating(player)) {
                     arena.sendMessage("&c" + player.getDisplayName() + " &6יצא מצפייה מהארנה שלכם.");
-                    arena.removeSpectator(player, Optional.of(arena));
+                    arena.removeSpectator(player, Optional.ofNullable(arena));
                 }
             }
         } else if (itemName.equalsIgnoreCase(ColorUtils.color("&eמציאת שחקן &7(לחיצה ימנית)"))) {

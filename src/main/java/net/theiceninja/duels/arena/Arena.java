@@ -1,6 +1,7 @@
 package net.theiceninja.duels.arena;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.manager.*;
 import net.theiceninja.duels.tasks.BattleTask;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Data
+@Getter @Setter
 public class  Arena {
 
     private String name;
@@ -54,7 +55,6 @@ public class  Arena {
         this.spawnLocationTwo = spawnLocationTwo;
         setState(ArenaState.DEFAULT);
         rollBackManager = new PlayerRollBackManager();
-
     }
 
     public Arena(String name, ArenaState arenaState, DuelsPlugin plugin, ArenaManager arenaManager) {
@@ -62,7 +62,7 @@ public class  Arena {
         this.arenaState = arenaState;
         this.arenaManager = arenaManager;
         this.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents(new ArenaListeners(this, arenaManager), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new ArenaListeners(this), plugin);
         rollBackManager = new PlayerRollBackManager();
         arenaSetupManager = new ArenaSetupManager(rollBackManager, plugin, arenaManager);
     }
@@ -103,7 +103,7 @@ public class  Arena {
                 if (player2 == null) return;
                 player2.teleport(getLocationTwo());
                 updateScoreBoard();
-                sendMessage("&aהמשחק עכשיו מופעל! תלחמו!");
+                sendMessage("&#14A045המשחק עכשיו מופעל! תלחמו!");
                 giveItems();
                 if (cooldownTask != null) cooldownTask.cancel();
                 if (battleTask != null) battleTask.cancel();
@@ -142,26 +142,24 @@ public class  Arena {
     public void removePlayer(Player player) {
 
         sendMessage("&7[&c-&7] &4" + player.getDisplayName());
-        if (player != null)
         player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         playsound(Sound.ENTITY_BLAZE_HURT);
-        players.remove(player.getUniqueId());
         rollBackManager.restore(player);
+        players.remove(player.getUniqueId());
 
         if (arenaState == ArenaState.ACTIVE) {
+
             sendMessage("&c" + player.getDisplayName() + " &edied!");
-            if (player != null)
-                player.sendMessage(ColorUtils.color("&cאתה מתת!"));
+            player.sendMessage(ColorUtils.color("&cאתה מתת!"));
 
             if (players.size() == 1) {
                 Player winner = Bukkit.getPlayer(players.get(0));
-                if (player != null)
+
                 player.sendMessage(ColorUtils.color("&6" +  winner.getDisplayName() + " &bis the winner!"));
                 sendMessage("&6" +  winner.getDisplayName() + " &bis the winner!");
                 cleanup();
 
             } else if (players.isEmpty()) {
-                if (player != null)
                 player.sendMessage(ColorUtils.color("&cאין שחקנים חיים? נו טוב בכל מקרה נגמר.."));
                 sendMessage("&cאין שחקנים חיים? נו טוב בכל מקרה נגמר..");
                 cleanup();
@@ -217,6 +215,7 @@ public class  Arena {
     }
 
     public void removeSpectator(Player player, Optional<Arena> optionalArena) {
+
         optionalArena.get().spectating.remove(player.getUniqueId());
         rollBackManager.restore(player);
 
@@ -270,19 +269,18 @@ public class  Arena {
 
         setState(ArenaState.DEFAULT);
         for (UUID playerUUID : players) {
+
             Player player = Bukkit.getPlayer(playerUUID);
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
-            if (!spectating.isEmpty()) {
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    for (UUID playerUUId : spectating) {
-                        Player unShown = Bukkit.getPlayer(playerUUId);
-                        players.showPlayer(unShown);
-                    }
-                }
-            }
             rollBackManager.restore(player);
+
+            for (UUID playerUUId : spectating) {
+                Player unShown = Bukkit.getPlayer(playerUUId);
+                assert unShown != null;
+                player.showPlayer(unShown);
+            }
         }
-        if (!spectating.isEmpty())
+
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
@@ -294,17 +292,20 @@ public class  Arena {
         spectating.clear();
     }
 
-    public void sendTitle(String s) {
+    public void sendTitle(String str) {
+
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
-            player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(s), 0, 40, 0);
+            player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(str), 0, 40, 0);
         }
+
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
-            player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(s), 0, 40, 0);
+            player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(str), 0, 40, 0);
         }
+
     }
 
     public void giveItems() {
@@ -374,6 +375,7 @@ public class  Arena {
         scoreboardLines.add("&f");
 
         if (isPlaying(player)) {
+
             if (arenaState == ArenaState.DEFAULT) {
 
                 scoreboardLines.add("&r ");
@@ -399,6 +401,7 @@ public class  Arena {
                 if (battleTask != null)
                     scoreboardLines.add("&fהמשחק נגמר בעוד&8: &c" + battleTask.getTimer() / 60 + "&8:&c" + battleTask.getTimer() % 60);
             }
+
         } else if (isSpectating(player)) {
             scoreboardLines.add("&r ");
             Player opponentOne = Bukkit.getPlayer(players.get(0));
@@ -438,6 +441,7 @@ public class  Arena {
             if (player == null) continue;
             setScoreboard(player);
         }
+
     }
 
     public void playsound(Sound sound) {
@@ -453,7 +457,6 @@ public class  Arena {
             if (player == null) continue;
             player.playSound(player, sound, 1, 1);
         }
-
     }
 
 }

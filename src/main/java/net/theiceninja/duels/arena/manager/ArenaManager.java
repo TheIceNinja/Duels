@@ -23,14 +23,12 @@ public class ArenaManager {
     public void removeArena(String arenaName, DuelsPlugin plugin) {
         arenas.removeIf(arena1 ->
                 arena1.getName().equalsIgnoreCase(arenaName));
+
         plugin.getConfig().set("arenas." + arenaName, null);
         plugin.saveConfig();
     }
 
     public void load(DuelsPlugin plugin) {
-
-
-
         for (String key : plugin.getConfig().getConfigurationSection("arenas").getKeys(false)) {
             ConfigurationSection configSection = plugin.getConfig().getConfigurationSection("arenas." + key);
             if (configSection == null) return;
@@ -39,15 +37,18 @@ public class ArenaManager {
             Location spawnLocationTwo = configSection.getLocation("spawnLocationTwo");
             String name = configSection.getString("name");
             Arena arena = new Arena(name, spawnLocationOne, spawnLocationTwo, plugin);
-            plugin.getServer().getPluginManager().registerEvents(new ArenaListeners(arena, this), plugin);
+            plugin.getServer().getPluginManager().registerEvents(new ArenaListeners(arena), plugin);
 
              arenas.add(arena);
         }
     }
     public String getArenaStateToString(Arena arena) {
         if (arena.getArenaState() == ArenaState.DEFAULT) return "&#F3190Fמצב מכובה";
+
         if (arena.getArenaState() == ArenaState.COOLDOWN) return "&#F3C30Fמצב כוננות";
+
         if (arena.getArenaState() == ArenaState.ACTIVE) return "&#0FF319מצב פעיל";
+
         return null;
     }
 
