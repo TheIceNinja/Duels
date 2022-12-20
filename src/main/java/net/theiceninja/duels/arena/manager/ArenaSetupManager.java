@@ -36,10 +36,10 @@ public class ArenaSetupManager implements Listener {
 
     private final ArenaManager arenaManager;
 
-    private ItemStack setLocationItem = ItemBuilder.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&cקביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
-    private ItemStack save = ItemBuilder.createItem(Material.GREEN_WOOL, 1, ColorUtils.color("&aשמירת ארנה &7(לחיצה ימנית)"));
+    private ItemStack setLocationItem = ItemBuilder.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&#F1CA16קביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
+    private ItemStack save = ItemBuilder.createItem(Material.GREEN_WOOL, 1, ColorUtils.color("&#12A459שמירת ארנה &7(לחיצה ימנית)"));
 
-    private ItemStack cancel = ItemBuilder.createItem(Material.BARRIER, 1, ColorUtils.color("&aמחיקת ארנה &7(לחיצה ימנית)"));
+    private ItemStack cancel = ItemBuilder.createItem(Material.BARRIER, 1, ColorUtils.color("&#F03D15מחיקת ארנה &7(לחיצה ימנית)"));
 
 
     public void addToSetup(Player player, Arena arena) {

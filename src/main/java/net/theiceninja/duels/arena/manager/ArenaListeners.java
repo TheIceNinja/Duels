@@ -35,7 +35,7 @@ public class ArenaListeners implements Listener {
             arena.removePlayer(player);
 
         } else if (getArena().isSpectating(player)) {
-            getArena().removeSpectator(player, Optional.ofNullable(getArena()));
+            getArena().removeSpectator(player, Optional.of(getArena()));
 
         }
     }
@@ -74,14 +74,12 @@ public class ArenaListeners implements Listener {
         if (!arena.isPlaying(event.getPlayer())) return;
 
         Player player = event.getPlayer();
-
         new BukkitRunnable() {
             @Override
             public void run() {
-                cancel();
                 arena.removePlayer(player);
             }
-        }.runTaskTimer(arena.getPlugin(),0,  29);
+        }.runTaskLater(arena.getPlugin(), 29);
     }
 
 
@@ -115,8 +113,8 @@ public class ArenaListeners implements Listener {
         if (!event.getItem().hasItemMeta()) return;
         String itemName = event.getItem().getItemMeta().getDisplayName();
         Player player = event.getPlayer();
+        if (player == null) return;
         if (itemName.equalsIgnoreCase(ColorUtils.color("&cעזיבת משחק &7(לחיצה ימנית)"))) {
-
 
             if (arena.getArenaState() != ArenaState.ACTIVE) {
                 if (arena.isPlaying(player)) arena.removePlayer(player);
@@ -124,7 +122,7 @@ public class ArenaListeners implements Listener {
 
                 if (getArena().isSpectating(player)) {
                     arena.sendMessage("&c" + player.getDisplayName() + " &6יצא מצפייה מהארנה שלכם.");
-                    arena.removeSpectator(player, Optional.ofNullable(arena));
+                    arena.removeSpectator(player, Optional.of(arena));
                 }
             }
         } else if (itemName.equalsIgnoreCase(ColorUtils.color("&eמציאת שחקן &7(לחיצה ימנית)"))) {

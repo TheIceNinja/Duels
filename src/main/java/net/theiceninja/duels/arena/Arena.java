@@ -40,7 +40,7 @@ public class  Arena {
 
     private ArenaManager arenaManager;
 
-    private final DuelsPlugin plugin;
+    private DuelsPlugin plugin;
 
     private BattleTask battleTask;
 
@@ -48,7 +48,6 @@ public class  Arena {
 
 
     public Arena(String name, Location spawnLocationOne, Location spawnLocationTwo, DuelsPlugin plugin) {
-
         this.plugin = plugin;
         this.name = name;
         this.spawnLocationOne = spawnLocationOne;
@@ -85,9 +84,6 @@ public class  Arena {
         this.arenaState = arenaState;
 
         switch (arenaState) {
-            case DEFAULT:
-                updateScoreBoard();
-                break;
             case COOLDOWN:
                 updateScoreBoard();
                 if (cooldownTask != null) cooldownTask.cancel();
@@ -152,6 +148,15 @@ public class  Arena {
             sendMessage("&c" + player.getDisplayName() + " &edied!");
             player.sendMessage(ColorUtils.color("&cאתה מתת!"));
 
+            Player playerOne = Bukkit.getPlayer(players.get(0));
+
+            for (UUID playerUUID : spectating) {
+                Player spectators = Bukkit.getPlayer(playerUUID);
+                if (spectators == null) return;
+                playerOne.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), spectators);
+                player.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class),spectators);
+            }
+
             if (players.size() == 1) {
                 Player winner = Bukkit.getPlayer(players.get(0));
 
@@ -167,6 +172,7 @@ public class  Arena {
             }
 
         } else if (arenaState == ArenaState.COOLDOWN) {
+
             if (cooldownTask != null) cooldownTask.cancel();
             if (battleTask != null) battleTask.cancel();
 
@@ -190,7 +196,7 @@ public class  Arena {
 
         for (UUID playerUUID : optionalArena.get().players) {
             Player battle = Bukkit.getPlayer(playerUUID);
-            battle.hidePlayer(player);
+            battle.hidePlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), player);
         }
 
         player.setGameMode(GameMode.ADVENTURE);
@@ -221,9 +227,11 @@ public class  Arena {
 
         for (UUID playerUUID : players) {
             Player arenaPlayer = Bukkit.getPlayer(playerUUID);
-            arenaPlayer.showPlayer(player);
+            if (arenaPlayer == null) return;
+            arenaPlayer.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), player);
         }
 
+        player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         player.setGlowing(false);
     }
 
@@ -268,23 +276,19 @@ public class  Arena {
         if (battleTask != null) battleTask.cancel();
 
         setState(ArenaState.DEFAULT);
-        for (UUID playerUUID : players) {
 
+        for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
             rollBackManager.restore(player);
 
-            for (UUID playerUUId : spectating) {
-                Player unShown = Bukkit.getPlayer(playerUUId);
-                assert unShown != null;
-                player.showPlayer(unShown);
-            }
         }
 
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
-            player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
             rollBackManager.restore(player);
+
+            player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
             player.setGlowing(false);
         }
 
@@ -403,14 +407,16 @@ public class  Arena {
             }
 
         } else if (isSpectating(player)) {
-            scoreboardLines.add("&r ");
+            scoreboardLines.add("&r");
             Player opponentOne = Bukkit.getPlayer(players.get(0));
             Player opponentTwo = Bukkit.getPlayer(players.get(1));
+            if (opponentTwo == null) return;
+            if (opponentOne == null) return;
             scoreboardLines.add("&fהאנשים במשחק&8:");
-            scoreboardLines.add("&r ");
+            scoreboardLines.add("&r");
             scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName());
-            scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
-            scoreboardLines.add("&f");
+                scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
+            scoreboardLines.add("&r");
             if (battleTask != null)
                 scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &c" + battleTask.getTimer() / 60 + "&8:&c" + battleTask.getTimer() % 60);
 

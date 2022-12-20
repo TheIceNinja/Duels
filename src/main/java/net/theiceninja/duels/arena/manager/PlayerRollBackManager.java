@@ -11,11 +11,11 @@ import java.util.UUID;
 
 public class PlayerRollBackManager {
 
-    private Map<UUID, ItemStack[]> playerInventory = new HashMap<>();
-    private Map<UUID, ItemStack[]> playerArmor = new HashMap<>();
-    private Map<UUID, Location> playerLoc = new HashMap<>();
-    private Map<UUID, GameMode> playerGameMode = new HashMap<>();
-    private Map<UUID, Double> playerHealth = new HashMap<>();
+    private final Map<UUID, ItemStack[]> playerInventory = new HashMap<>();
+    private final Map<UUID, ItemStack[]> playerArmor = new HashMap<>();
+    private final Map<UUID, Location> playerLoc = new HashMap<>();
+    private final Map<UUID, GameMode> playerGameMode = new HashMap<>();
+    private final Map<UUID, Double> playerHealth = new HashMap<>();
 
     /**
      *
@@ -39,14 +39,19 @@ public class PlayerRollBackManager {
         player.getInventory().clear();
         ItemStack[] previousInventory = playerInventory.get(player.getUniqueId());
         if (previousInventory != null) player.getInventory().setContents(previousInventory);
+
         ItemStack[] previousArmor = playerArmor.get(player.getUniqueId());
         if (previousArmor != null) player.getInventory().setArmorContents(previousArmor);
+
         Location previousLocation = playerLoc.get(player.getUniqueId());
         if (previousLocation != null) player.teleport(previousLocation);
+
         GameMode previousGameMode = playerGameMode.get(player.getUniqueId());
         if (previousGameMode != null)  player.setGameMode(previousGameMode);
+
         double previousHealth = playerHealth.get(player.getUniqueId());
         if (previousHealth != 0) player.setHealth(previousHealth);
+
         playerInventory.remove(player.getUniqueId());
         playerHealth.remove(player.getUniqueId());
         playerArmor.remove(player.getUniqueId());

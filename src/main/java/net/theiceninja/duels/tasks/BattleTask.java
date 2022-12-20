@@ -25,7 +25,7 @@ public class BattleTask extends BukkitRunnable {
             arena.sendMessage("&cאין מנצח? המשחק נגמר!");
             arena.cleanup();
         }
-        arena.updateScoreBoard();
 
+        arena.updateScoreBoard();
     }
 }

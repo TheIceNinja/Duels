@@ -34,6 +34,7 @@ public class Gui {
                     "&7לחיצה ימנית לכניסה למשחק!",
                     "&7לחיצה שמאלית לצפייה בארנה עם השחקנים!"
             );
+
             inventory.addItem(arenaItem);
         }
         inventory.setItem(31, ItemBuilder.createItem(
