@@ -158,6 +158,7 @@ public class ArenaListeners implements Listener {
         if (event.getHitBlock() == null) return;
         event.getEntity().remove();
     }
+
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
 
@@ -165,6 +166,7 @@ public class ArenaListeners implements Listener {
         if (!arena.isInGame(player)) return;
         event.setCancelled(true);
     }
+
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
 
