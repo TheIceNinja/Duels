@@ -27,8 +27,8 @@ public class Gui {
                     "&fמצב ארנה&8: " + arenaManager.getArenaStateToString(arena),
                     "&fכמות האנשים בארנה&8: &a" + arena.getPlayers().size() + "/2",
                     "&r",
-                    "&7לחיצה ימנית לכניסה למשחק!",
-                    "&7לחיצה שמאלית לצפייה בארנה עם השחקנים!"
+                    "&7לחיצה ימנית לצפייה במשחק!",
+                    "&7לחיצה שמאלית לכניסה למשחק!"
             );
 
             inventory.addItem(arenaItem);
