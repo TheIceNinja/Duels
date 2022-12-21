@@ -46,6 +46,4 @@ public class GuiListener implements Listener {
             event.setCancelled(true);
         }
     }
-
-
 }
