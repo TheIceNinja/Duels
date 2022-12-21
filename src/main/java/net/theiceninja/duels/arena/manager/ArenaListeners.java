@@ -199,6 +199,7 @@ public class ArenaListeners implements Listener {
         if (!arena.isInGame(player)) return;
         event.setCancelled(true);
     }
+
     @EventHandler
     public void onSwap(PlayerSwapHandItemsEvent event) {
         if (!getArena().isInGame(event.getPlayer())) return;
