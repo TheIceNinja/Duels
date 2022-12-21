@@ -385,7 +385,7 @@ public class  Arena {
                 scoreboardLines.add("&r ");
 
                 if (battleTask != null)
-                    scoreboardLines.add("&fהמשחק נגמר בעוד&8: &c" + battleTask.getTimer() / 60 + "&7:&c" + battleTask.getTimer() % 60);
+                    scoreboardLines.add("&fהמשחק נגמר בעוד&8: &c" + battleTask.getTimer() / 60 + "&8:&c" + battleTask.getTimer() % 60);
             }
 
         } else if (isSpectating(player)) {
@@ -401,7 +401,7 @@ public class  Arena {
                 scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
             scoreboardLines.add("&r");
             if (battleTask != null)
-                scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &e" + battleTask.getTimer() / 60 + "&7:&e" + battleTask.getTimer() % 60);
+                scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &e" + battleTask.getTimer() / 60 + "&8:&e" + battleTask.getTimer() % 60);
 
         }
 
