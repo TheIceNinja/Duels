@@ -73,11 +73,9 @@ public class ArenaSetupManager implements Listener {
         if (!isOnSetup(player)) return;
 
         Arena arena = setup.get(player.getUniqueId());
-
         ItemStack item = event.getItem();
 
         if (item.isSimilar(setLocationItem)) {
-
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 arena.saveLocation(plugin, player.getLocation(), "locationOne");
                 player.sendMessage(ColorUtils.color("&aמיקום ראשון של הארנה נשמר!"));
@@ -109,6 +107,7 @@ public class ArenaSetupManager implements Listener {
     @EventHandler
     private void onQuit(PlayerQuitEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
+
         arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
         removeFromSetup(event.getPlayer());
         plugin.reloadConfig();
@@ -117,12 +116,14 @@ public class ArenaSetupManager implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onPlace(BlockPlaceEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
+
         if (event.getBlock().getType() == Material.GREEN_WOOL) event.setBuild(false);
     }
 
     @EventHandler
     private void onBreak(BlockBreakEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
+
         event.setCancelled(true);
     }
 }
