@@ -296,7 +296,7 @@ public class  Arena {
         }
     }
 
-    public void giveItems() {
+    private void giveItems() {
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getInventory().clear();

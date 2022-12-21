@@ -66,7 +66,7 @@ public class ArenaSetupManager implements Listener {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent event) {
+    private void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.hasItem()) return;
         if (!event.getItem().hasItemMeta()) return;
@@ -107,7 +107,7 @@ public class ArenaSetupManager implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
+    private void onQuit(PlayerQuitEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
         arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
         removeFromSetup(event.getPlayer());
@@ -115,13 +115,13 @@ public class ArenaSetupManager implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlace(BlockPlaceEvent event) {
+    private void onPlace(BlockPlaceEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
         if (event.getBlock().getType() == Material.GREEN_WOOL) event.setBuild(false);
     }
 
     @EventHandler
-    public void onBreak(BlockBreakEvent event) {
+    private void onBreak(BlockBreakEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
         event.setCancelled(true);
     }
