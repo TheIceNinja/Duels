@@ -14,7 +14,6 @@ public class BattleTask extends BukkitRunnable {
 
     @Override
     public void run() {
-
         timer--;
 
         if (timer <= 0) {

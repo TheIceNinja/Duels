@@ -57,6 +57,5 @@ public class PlayerRollBackManager {
         playerArmor.remove(player.getUniqueId());
         playerLoc.remove(player.getUniqueId());
         playerGameMode.remove(player.getUniqueId());
-
     }
 }

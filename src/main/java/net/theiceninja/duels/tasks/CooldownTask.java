@@ -12,13 +12,10 @@ public class CooldownTask extends BukkitRunnable {
 
     @Getter
     private int timer = 6;
-
     private final Arena arena;
-
 
     @Override
     public void run() {
-
         timer--;
 
         if (timer <= 0) {
