@@ -432,7 +432,6 @@ public class  Arena {
     }
 
     public void playsound(Sound sound) {
-
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;

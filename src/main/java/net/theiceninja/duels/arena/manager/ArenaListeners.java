@@ -213,4 +213,21 @@ public class ArenaListeners implements Listener {
         if (!getArena().isInGame(event.getPlayer())) return;
         event.setCancelled(true);
     }
+
+    @EventHandler
+    private void onChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        if (!getArena().isInGame(player)) return;
+
+        arena.sendMessage(getStatePlayerEnglish(player) + player.getDisplayName() + "&8: &f" + event.getMessage());
+        event.setCancelled(true);
+    }
+
+    private String getStatePlayerEnglish(Player player) {
+        if (arena.isPlaying(player)) return "&#0FE716&lAlive &#2AE886";
+
+        if (getArena().isSpectating(player)) return "&#B2C2B3&lSpectator &#B2C2B3";
+
+        return null;
+    }
 }
