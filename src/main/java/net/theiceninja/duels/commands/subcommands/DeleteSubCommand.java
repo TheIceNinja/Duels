@@ -33,9 +33,7 @@ public class DeleteSubCommand implements SubCommand {
         }
 
         arenaManager.removeArena(args[1], plugin);
-
         player.sendMessage(ColorUtils.color("&cאתה מחקת את הארנה &4&l" + args[1] + "&c."));
-
     }
 
     @Override

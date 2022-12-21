@@ -24,28 +24,17 @@ import java.util.UUID;
 public class  Arena {
 
     private String name;
-
     private Location spawnLocationOne;
     private Location spawnLocationTwo;
-
     private ArenaSetupManager arenaSetupManager;
-
     private List<UUID> players = new ArrayList<>();
-
     private List<UUID> spectating = new ArrayList<>();
-
     private PlayerRollBackManager rollBackManager;
-
     private ArenaState arenaState;
-
     private ArenaManager arenaManager;
-
     private DuelsPlugin plugin;
-
     private BattleTask battleTask;
-
     private CooldownTask cooldownTask;
-
 
     public Arena(String name, Location spawnLocationOne, Location spawnLocationTwo, DuelsPlugin plugin) {
         this.plugin = plugin;
@@ -87,22 +76,25 @@ public class  Arena {
             case COOLDOWN:
                 updateScoreBoard();
                 if (cooldownTask != null) cooldownTask.cancel();
+
                 cooldownTask = new CooldownTask(this);
                 cooldownTask.runTaskTimer(plugin, 0, 20);
-
                 break;
             case ACTIVE:
                 Player player1 = Bukkit.getPlayer(players.get(0));
                 if (player1 == null) return;
                 player1.teleport(getLocationOne());
+
                 Player player2 = Bukkit.getPlayer(players.get(1));
                 if (player2 == null) return;
                 player2.teleport(getLocationTwo());
+
                 updateScoreBoard();
                 sendMessage("&#14A045המשחק עכשיו מופעל! תלחמו!");
                 giveItems();
                 if (cooldownTask != null) cooldownTask.cancel();
                 if (battleTask != null) battleTask.cancel();
+
                 battleTask = new BattleTask(this);
                 battleTask.runTaskTimer(plugin, 0, 20);
                 break;
@@ -172,7 +164,6 @@ public class  Arena {
             }
 
         } else if (arenaState == ArenaState.COOLDOWN) {
-
             if (cooldownTask != null) cooldownTask.cancel();
             if (battleTask != null) battleTask.cancel();
 
@@ -210,11 +201,13 @@ public class  Arena {
                 "&cעזיבת משחק &7(לחיצה ימנית)"
         ));
 
-        player.getInventory().setItem(0, ItemBuilder.createItem(
+        /*
+                player.getInventory().setItem(0, ItemBuilder.createItem(
                 Material.COMPASS,
                 1,
                 "&eמציאת שחקן &7(לחיצה ימנית)"
         ));
+         */
 
         player.sendMessage(ColorUtils.color("&aאתה עכשיו צופה באנשים שבארנה &2" + optionalArena.get().getName() + "&a."));
 
@@ -233,6 +226,7 @@ public class  Arena {
 
         player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         player.setGlowing(false);
+        player.setAllowFlight(false);
     }
 
 
@@ -269,7 +263,6 @@ public class  Arena {
         return plugin.getConfig().getLocation("arenas." + name + ".locationTwo");
     }
 
-
     public void cleanup() {
 
         if (cooldownTask != null) cooldownTask.cancel();
@@ -281,15 +274,14 @@ public class  Arena {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
             rollBackManager.restore(player);
-
         }
 
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             rollBackManager.restore(player);
-
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
             player.setGlowing(false);
+            player.setAllowFlight(false);
         }
 
         players.clear();
@@ -297,7 +289,6 @@ public class  Arena {
     }
 
     public void sendTitle(String str) {
-
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
@@ -309,7 +300,6 @@ public class  Arena {
             if (player == null) continue;
             player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(str), 0, 40, 0);
         }
-
     }
 
     public void giveItems() {
@@ -371,11 +361,10 @@ public class  Arena {
     }
 
     public void setScoreboard(Player player) {
-
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = manager.getNewScoreboard();
         List<String> scoreboardLines = new ArrayList<>();
-        Objective objective = scoreboard.registerNewObjective("ice", "dummy", ColorUtils.color("&#d49c4a&lᴛ&#d79745&lɪ&#db9340&lɢ&#de8e3c&lᴇ&#e18937&lʀ &#e58432&lɴ&#e8802d&lᴇ&#ec7b28&lᴛ&#ef7623&lᴡ&#f2711f&lᴏ&#f66d1a&lʀ&#f96815&lᴋ &7| &fקרבות"));
+        Objective objective = scoreboard.registerNewObjective("ice", "dummy", ColorUtils.color("&#855010&lNutellaClub &7| &fקרבות"));
         scoreboardLines.add("&f");
 
         if (isPlaying(player)) {
@@ -412,18 +401,19 @@ public class  Arena {
             Player opponentTwo = Bukkit.getPlayer(players.get(1));
             if (opponentTwo == null) return;
             if (opponentOne == null) return;
+
             scoreboardLines.add("&fהאנשים במשחק&8:");
             scoreboardLines.add("&r");
             scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName());
                 scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
             scoreboardLines.add("&r");
             if (battleTask != null)
-                scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &c" + battleTask.getTimer() / 60 + "&8:&c" + battleTask.getTimer() % 60);
+                scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &e" + battleTask.getTimer() / 60 + "&8:&e" + battleTask.getTimer() % 60);
 
         }
 
         scoreboardLines.add("&r ");
-        scoreboardLines.add("&7play.tigernetwork.cf");
+        scoreboardLines.add("&7play.nutellaclub.ml");
 
         for (int i = 0; i < scoreboardLines.size(); i++) {
             String line = ColorUtils.color(scoreboardLines.get(i));
@@ -435,7 +425,6 @@ public class  Arena {
     }
 
     public void updateScoreBoard() {
-
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
@@ -447,7 +436,6 @@ public class  Arena {
             if (player == null) continue;
             setScoreboard(player);
         }
-
     }
 
     public void playsound(Sound sound) {
@@ -458,6 +446,7 @@ public class  Arena {
             player.playSound(player, sound, 1, 1);
 
         }
+
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;

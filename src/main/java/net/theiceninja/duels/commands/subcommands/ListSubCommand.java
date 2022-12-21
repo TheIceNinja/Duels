@@ -24,6 +24,7 @@ public class ListSubCommand implements SubCommand {
             player.sendMessage(ColorUtils.color("&cאין שום ארנות, אתה צריך ליצור אחד."));
             return;
         }
+
         for (Arena arena : arenaManager.getArenas()) {
             player.sendMessage(ColorUtils.color(
                     "&b===================" + "\n"

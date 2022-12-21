@@ -30,15 +30,12 @@ public class QuitSubCommand implements SubCommand {
         }
 
         if (optionalArena.get().isSpectating(player)) {
-
             optionalArena.get().removeSpectator(player, optionalArena);
             optionalArena.get().sendMessage("&c" + player.getDisplayName() + " &6יצא מצפייה מהארנה שלכם.");
 
         } else if (optionalArena.get().isPlaying(player)) {
-
             optionalArena.get().removePlayer(player);
         }
-
     }
 
     @Override

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.utils.ColorUtils;
+import net.theiceninja.duels.utils.Gui;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.GlowItemFrame;
@@ -126,7 +127,7 @@ public class ArenaListeners implements Listener {
                 }
             }
         } else if (itemName.equalsIgnoreCase(ColorUtils.color("&eמציאת שחקן &7(לחיצה ימנית)"))) {
-            // soon
+            player.openInventory(Gui.spectatingGUI(arena));
         }
     }
 

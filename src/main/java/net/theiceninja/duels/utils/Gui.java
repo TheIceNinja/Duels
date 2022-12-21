@@ -5,7 +5,6 @@ import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,10 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Gui {
 
-
-
     public static Inventory arenasList(ArenaManager arenaManager) {
-
         Inventory inventory = createInv(36, "&8ארנות");
 
         for (Arena arena : arenaManager.getArenas()) {
@@ -48,12 +44,10 @@ public class Gui {
     }
 
     public static Inventory spectatingGUI(Arena arena) {
-        // soon..
         Inventory inventory = createInv(9, "&8מצב צופה");
 
         for (UUID playerUUID : arena.getPlayers()) {
             Player player = Bukkit.getPlayer(playerUUID);
-            if (player == null) continue;
 
             ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
@@ -72,8 +66,6 @@ public class Gui {
 
         return inventory;
     }
-
-
     public static Inventory createInv(int invSize, String title) {
         Inventory inv = Bukkit.createInventory(null, invSize, ColorUtils.color(title));
         return inv;

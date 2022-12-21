@@ -42,6 +42,7 @@ public class ArenaManager {
              arenas.add(arena);
         }
     }
+
     public String getArenaStateToString(Arena arena) {
         if (arena.getArenaState() == ArenaState.DEFAULT) return "&#F3190Fמצב מכובה";
 
@@ -56,5 +57,4 @@ public class ArenaManager {
         return getArenas().stream().filter(arena1 ->
                 arena1.getName().equalsIgnoreCase(arenaName)).findAny();
     }
-
 }

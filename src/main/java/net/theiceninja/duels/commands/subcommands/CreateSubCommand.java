@@ -38,7 +38,6 @@ public class CreateSubCommand implements SubCommand {
         arenaManager.addArena(arena, plugin);
         player.sendMessage(ColorUtils.color("&aאתה יצרת את הארנה &2&l" + args[1] + "&a."));
         arena.getArenaSetupManager().addToSetup(player, arena);
-
     }
 
     @Override

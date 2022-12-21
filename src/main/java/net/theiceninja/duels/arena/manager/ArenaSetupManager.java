@@ -29,11 +29,8 @@ import java.util.UUID;
 public class ArenaSetupManager implements Listener {
 
     private Map<UUID, Arena> setup = new HashMap<>();
-
     private final PlayerRollBackManager rollBackManager;
-
     private final DuelsPlugin plugin;
-
     private final ArenaManager arenaManager;
 
     private ItemStack setLocationItem = ItemBuilder.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&#F1CA16קביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
@@ -52,7 +49,6 @@ public class ArenaSetupManager implements Listener {
         player.getInventory().setItem(1, save);
         player.getInventory().setItem(2, cancel);
         player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-
 
         player.sendMessage(ColorUtils.color("&#1CE446אתה עכשיו במצב יצירת ארנה!"));
     }
@@ -129,5 +125,4 @@ public class ArenaSetupManager implements Listener {
         if (!isOnSetup(event.getPlayer())) return;
         event.setCancelled(true);
     }
-
 }

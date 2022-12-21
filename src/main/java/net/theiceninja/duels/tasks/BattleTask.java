@@ -10,9 +10,7 @@ public class BattleTask extends BukkitRunnable {
 
     @Getter
     private int timer = 60 * 3;
-
     private final Arena arena;
-
 
     @Override
     public void run() {
@@ -24,6 +22,7 @@ public class BattleTask extends BukkitRunnable {
             arena.sendTitle("&#0FF36Cהמשחק נגמר!");
             arena.sendMessage("&cאין מנצח? המשחק נגמר!");
             arena.cleanup();
+            return;
         }
 
         arena.updateScoreBoard();
