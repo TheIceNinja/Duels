@@ -23,7 +23,6 @@ public class DuelsPlugin extends JavaPlugin {
 
     }
 
-
     @Override
     public void onDisable() {
         super.onDisable();

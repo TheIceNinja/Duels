@@ -128,7 +128,6 @@ public class  Arena {
     }
 
     public void removePlayer(Player player) {
-
         sendMessage("&7[&c-&7] &4" + player.getDisplayName());
         player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         playsound(Sound.ENTITY_BLAZE_HURT);
@@ -178,11 +177,8 @@ public class  Arena {
     }
 
     public void addSpectator(Player player, Optional<Arena> optionalArena) {
-
         optionalArena.get().spectating.add(player.getUniqueId());
-
         rollBackManager.save(player);
-
         player.teleport(optionalArena.get().getLocationOne());
 
         for (UUID playerUUID : optionalArena.get().players) {
@@ -235,7 +231,6 @@ public class  Arena {
     }
 
     public void join(Player player, Optional<Arena> arena) {
-
         arena.get().addPlayer(player);
 
         if (arena.get().players.size() == 1) {
@@ -264,7 +259,6 @@ public class  Arena {
     }
 
     public void cleanup() {
-
         if (cooldownTask != null) cooldownTask.cancel();
         if (battleTask != null) battleTask.cancel();
 
@@ -303,7 +297,6 @@ public class  Arena {
     }
 
     public void giveItems() {
-
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getInventory().clear();
