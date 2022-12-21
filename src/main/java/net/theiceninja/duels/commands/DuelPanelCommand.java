@@ -48,7 +48,6 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-
             if (!player.hasPermission("duels.admin")) {
                 player.sendMessage(ColorUtils.color("&eUsage: /duelpanel <randomJoin|quit|join>"));
                 return true;
@@ -68,7 +67,6 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
     @Nullable
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-
         List<String> complete = new ArrayList<>();
         if (complete.isEmpty() && args.length == 1 && sender.hasPermission("duels.admin")) {
             complete.add("create");

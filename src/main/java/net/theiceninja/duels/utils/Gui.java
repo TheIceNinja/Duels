@@ -66,9 +66,9 @@ public class Gui {
 
         return inventory;
     }
+
     public static Inventory createInv(int invSize, String title) {
         Inventory inv = Bukkit.createInventory(null, invSize, ColorUtils.color(title));
         return inv;
     }
-
 }

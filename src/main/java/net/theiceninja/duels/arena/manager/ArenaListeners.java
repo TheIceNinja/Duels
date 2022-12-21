@@ -28,22 +28,21 @@ public class ArenaListeners implements Listener {
     @Getter
     private final Arena arena;
 
-
     @EventHandler
     private void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+
         if (getArena().isPlaying(player)) {
             arena.removePlayer(player);
-
         } else if (getArena().isSpectating(player)) {
             getArena().removeSpectator(player, Optional.of(getArena()));
-
         }
     }
 
     @EventHandler
     private void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
+
         Player player = (Player) event.getEntity();
         if (getArena().isPlaying(player)) {
             if (arena.getArenaState() != ArenaState.ACTIVE)
@@ -57,13 +56,13 @@ public class ArenaListeners implements Listener {
     private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (arena.getArenaState() != ArenaState.ACTIVE) return;
         if (!(event.getDamager() instanceof Player && event.getEntity() instanceof Player)) return;
+
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
         if (arena.isPlaying(damager) && arena.isSpectating(damaged)) event.setCancelled(true);
         else if (arena.isPlaying(damaged) && arena.isSpectating(damager)) event.setCancelled(true);
     }
-
 
     @EventHandler
     private void onDeath(PlayerDeathEvent event) {
@@ -83,10 +82,10 @@ public class ArenaListeners implements Listener {
         }.runTaskLater(arena.getPlugin(), 29);
     }
 
-
     @EventHandler
     private void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
+
         if (!getArena().isInGame(player)) return;
         event.setCancelled(true);
     }
@@ -94,6 +93,7 @@ public class ArenaListeners implements Listener {
     @EventHandler
     private void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
+
         if (!getArena().isInGame(player)) return;
         event.setCancelled(true);
 
@@ -101,7 +101,10 @@ public class ArenaListeners implements Listener {
             for (UUID playerUUID : arena.getPlayers()) {
                 Player alivePlayer = Bukkit.getPlayer(playerUUID);
                 String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
-                if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + alivePlayer.getDisplayName() + " &c" + player.getHealth()))) {
+                if (itemName.equalsIgnoreCase(ColorUtils.color(
+                        "&a&l" + alivePlayer.getDisplayName() + " &c" + player.getHealth()
+                ))) {
+                    // soon
                     player.sendMessage(itemName.substring(10));
                 }
             }
@@ -112,8 +115,10 @@ public class ArenaListeners implements Listener {
     private void onInteract(PlayerInteractEvent event) {
         if (!event.hasItem()) return;
         if (!event.getItem().hasItemMeta()) return;
+
         String itemName = event.getItem().getItemMeta().getDisplayName();
         Player player = event.getPlayer();
+
         if (player == null) return;
         if (itemName.equalsIgnoreCase(ColorUtils.color("&cעזיבת משחק &7(לחיצה ימנית)"))) {
 
@@ -134,13 +139,13 @@ public class ArenaListeners implements Listener {
     @EventHandler
     private void onFoodLevelChange(FoodLevelChangeEvent event) {
         Player player = (Player) event.getEntity();
+
         if (!getArena().isInGame(player)) return;
         event.setCancelled(true);
     }
 
     @EventHandler
     private void onCommand(PlayerCommandPreprocessEvent event) {
-
         Player player = event.getPlayer();
         if (!arena.isInGame(player)) return;
 
@@ -156,20 +161,20 @@ public class ArenaListeners implements Listener {
     private void onProjectileDrop(ProjectileHitEvent event) {
         if (arena.getArenaState() != ArenaState.ACTIVE) return;
         if (event.getHitBlock() == null) return;
+
         event.getEntity().remove();
     }
 
     @EventHandler
     private void onBreak(BlockBreakEvent event) {
-
         Player player = event.getPlayer();
+
         if (!arena.isInGame(player)) return;
         event.setCancelled(true);
     }
 
     @EventHandler
     private void onPlace(BlockPlaceEvent event) {
-
         Player player = event.getPlayer();
 
         if (!arena.isInGame(player)) return;
@@ -179,6 +184,7 @@ public class ArenaListeners implements Listener {
     @EventHandler
     private void onInteractOnEntity(PlayerInteractEntityEvent event) {
         if (!arena.isPlaying(event.getPlayer())) return;
+
         if (event.getRightClicked() instanceof ItemFrame)
             event.setCancelled(true);
         else if (event.getRightClicked() instanceof GlowItemFrame)
@@ -189,13 +195,13 @@ public class ArenaListeners implements Listener {
     private void onSweet(PlayerHarvestBlockEvent event) {
         Player player = event.getPlayer();
         if (!arena.isInGame(player)) return;
+
         if (event.getHarvestedBlock().getType() == Material.SWEET_BERRIES) event.setCancelled(true);
         if (event.getHarvestedBlock().getType() == Material.SWEET_BERRY_BUSH) event.setCancelled(true);
     }
 
     @EventHandler
     private void onPickUp(PlayerPickupItemEvent event) {
-
         Player player = event.getPlayer();
 
         if (!arena.isInGame(player)) return;
