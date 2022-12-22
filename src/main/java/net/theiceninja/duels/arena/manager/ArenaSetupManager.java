@@ -125,7 +125,7 @@ public class ArenaSetupManager implements Listener {
         plugin.reloadConfig();
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler
     private void onPlace(BlockPlaceEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
 
