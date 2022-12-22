@@ -43,6 +43,7 @@ public class ArenaSetupManager implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         rollBackManager.save(player);
         setup.put(player.getUniqueId(), arena);
+
         // add items
         player.setGameMode(GameMode.CREATIVE);
         player.getInventory().setItem(0, setLocationItem);
@@ -107,8 +108,10 @@ public class ArenaSetupManager implements Listener {
             removeFromSetup(player);
         } else if (item.isSimilar(cancel)) {
             // cancel all the event and remove the arena
+
             arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
             removeFromSetup(event.getPlayer());
+
             // reload the config(so the arena will not be on the config)
             plugin.reloadConfig();
         }
@@ -117,9 +120,11 @@ public class ArenaSetupManager implements Listener {
     @EventHandler
     private void onQuit(PlayerQuitEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
+
         // if player quits the arena will be deleted
         arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
         removeFromSetup(event.getPlayer());
+
         // reload the config(so the arena will not be on the config)
         plugin.reloadConfig();
     }
