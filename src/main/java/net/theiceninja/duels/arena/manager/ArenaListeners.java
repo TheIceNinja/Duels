@@ -11,6 +11,7 @@ import org.bukkit.entity.GlowItemFrame;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -98,7 +99,7 @@ public class ArenaListeners implements Listener {
     }
 
     // soon
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     private void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
