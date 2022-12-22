@@ -28,8 +28,8 @@ public class  Arena {
     private Location spawnLocationOne;
     private Location spawnLocationTwo;
     private ArenaSetupManager arenaSetupManager;
-    private List<UUID> players = new ArrayList<>();
-    private List<UUID> spectating = new ArrayList<>();
+    private final List<UUID> players = new ArrayList<>();
+    private final List<UUID> spectating = new ArrayList<>();
     private PlayerRollBackManager rollBackManager;
     private ArenaState arenaState;
     private final ArenaManager arenaManager;
