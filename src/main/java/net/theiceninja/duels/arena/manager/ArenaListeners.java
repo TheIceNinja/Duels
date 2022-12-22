@@ -212,8 +212,10 @@ public class ArenaListeners implements Listener {
     }
 
     @EventHandler
-    private void onPickUp(PlayerPickupItemEvent event) {
-        Player player = event.getPlayer();
+    private void onPickUp(EntityPickupItemEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
+
+        Player player = (Player) event.getEntity();
 
         if (!arena.isInGame(player)) return;
         event.setCancelled(true);
