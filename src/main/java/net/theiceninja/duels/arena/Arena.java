@@ -23,6 +23,7 @@ import java.util.UUID;
 @Getter @Setter
 public class  Arena {
 
+    // arena
     private String name;
     private Location spawnLocationOne;
     private Location spawnLocationTwo;
@@ -31,12 +32,13 @@ public class  Arena {
     private List<UUID> spectating = new ArrayList<>();
     private PlayerRollBackManager rollBackManager;
     private ArenaState arenaState;
-    private ArenaManager arenaManager;
-    private DuelsPlugin plugin;
+    private final ArenaManager arenaManager;
+    private final DuelsPlugin plugin;
     private BattleTask battleTask;
     private CooldownTask cooldownTask;
 
-    public Arena(String name, Location spawnLocationOne, Location spawnLocationTwo, DuelsPlugin plugin) {
+    public Arena(String name, Location spawnLocationOne, Location spawnLocationTwo, ArenaManager arenaManager, DuelsPlugin plugin) {
+        this.arenaManager = arenaManager;
         this.plugin = plugin;
         this.name = name;
         this.spawnLocationOne = spawnLocationOne;
@@ -45,6 +47,7 @@ public class  Arena {
         rollBackManager = new PlayerRollBackManager();
     }
 
+    // loading all the from the config
     public Arena(String name, ArenaState arenaState, DuelsPlugin plugin, ArenaManager arenaManager) {
         this.name = name;
         this.arenaState = arenaState;
@@ -56,6 +59,8 @@ public class  Arena {
     }
 
     public void sendMessage(String message) {
+        // sending messages to all players in the arena
+
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
@@ -73,34 +78,39 @@ public class  Arena {
         this.arenaState = arenaState;
 
         switch (arenaState) {
-            case COOLDOWN:
+            case COOLDOWN -> {
+
+                // updates the scoreboard and showing cooldown
                 updateScoreBoard();
                 if (cooldownTask != null) cooldownTask.cancel();
-
                 cooldownTask = new CooldownTask(this);
                 cooldownTask.runTaskTimer(plugin, 0, 20);
-                break;
-            case ACTIVE:
+            }
+            case ACTIVE -> {
+
+                // teleporting to the locations
+
                 Player player1 = Bukkit.getPlayer(players.get(0));
                 if (player1 == null) return;
                 player1.teleport(getLocationOne());
-
                 Player player2 = Bukkit.getPlayer(players.get(1));
                 if (player2 == null) return;
                 player2.teleport(getLocationTwo());
-
+                // update the scoreboard to the state
                 updateScoreBoard();
                 sendMessage("&#14A045המשחק עכשיו מופעל! תלחמו!");
+                // giving the duel items
                 giveItems();
+                // run task that will check if the game cooldown ends
                 if (cooldownTask != null) cooldownTask.cancel();
                 if (battleTask != null) battleTask.cancel();
-
                 battleTask = new BattleTask(this);
                 battleTask.runTaskTimer(plugin, 0, 20);
-                break;
+            }
         }
     }
 
+    // saving the locations in the arena setup manager
     public void saveLocation(DuelsPlugin plugin, Location location, String locationName) {
         if (locationName.equalsIgnoreCase("locationOne")) {
             setSpawnLocationOne(location);
@@ -112,10 +122,14 @@ public class  Arena {
     }
 
     public void addPlayer(Player player) {
+        // saving the player(inv and all of those stuff) and adding to the list
         rollBackManager.save(player);
         players.add(player.getUniqueId());
+        // update the scoreboard with out flicker to be 1/2 or 2/2
         updateScoreBoard();
         playsound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
+
+        // adding items
         player.setHealth(20);
         player.setFoodLevel(20);
         sendMessage("&7[&a+&7] &2" + player.getDisplayName());
@@ -128,12 +142,15 @@ public class  Arena {
     }
 
     public void removePlayer(Player player) {
+
+        // restore the inventory (rollback) and removing from the list
         sendMessage("&7[&c-&7] &4" + player.getDisplayName());
         player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         playsound(Sound.ENTITY_BLAZE_HURT);
         rollBackManager.restore(player);
         players.remove(player.getUniqueId());
 
+        // if the state is active do stuff
         if (arenaState == ArenaState.ACTIVE) {
 
             sendMessage("&c" + player.getDisplayName() + " &edied!");
@@ -141,6 +158,7 @@ public class  Arena {
 
             Player playerOne = Bukkit.getPlayer(players.get(0));
 
+            // removing the spec and show players
             for (UUID playerUUID : spectating) {
                 Player spectators = Bukkit.getPlayer(playerUUID);
                 if (spectators == null) return;
@@ -148,20 +166,21 @@ public class  Arena {
                 player.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class),spectators);
             }
 
+            // if the players size is one do stuff
             if (players.size() == 1) {
+                // cleanup and announce the winner
                 Player winner = Bukkit.getPlayer(players.get(0));
-
                 player.sendMessage(ColorUtils.color("&6" +  winner.getDisplayName() + " &bis the winner!"));
                 sendMessage("&6" +  winner.getDisplayName() + " &bis the winner!");
                 cleanup();
-
             } else if (players.isEmpty()) {
+                // no winner with cleanup
                 player.sendMessage(ColorUtils.color("&cאין שחקנים חיים? נו טוב בכל מקרה נגמר.."));
                 sendMessage("&cאין שחקנים חיים? נו טוב בכל מקרה נגמר..");
                 cleanup();
-
             }
 
+            // if the player quits the game will be in the cooldown mode(no active)
         } else if (arenaState == ArenaState.COOLDOWN) {
             if (cooldownTask != null) cooldownTask.cancel();
             if (battleTask != null) battleTask.cancel();
@@ -170,6 +189,7 @@ public class  Arena {
             setState(ArenaState.DEFAULT);
             sendMessage("&cצריך עוד שחקנים כדי להתחיל את המשחק..");
 
+            // clear there scoreboards
         } else if (arenaState == ArenaState.DEFAULT) {
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
             updateScoreBoard();
@@ -177,15 +197,19 @@ public class  Arena {
     }
 
     public void addSpectator(Player player, Optional<Arena> optionalArena) {
+        // set the player in the spectator mode to watch all the arena
         optionalArena.get().spectating.add(player.getUniqueId());
+        // save player and teleport to the locations
         rollBackManager.save(player);
         player.teleport(optionalArena.get().getLocationOne());
 
+        // unshow players (spec)
         for (UUID playerUUID : optionalArena.get().players) {
             Player battle = Bukkit.getPlayer(playerUUID);
             battle.hidePlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), player);
         }
 
+        // adding items and doing spec things
         player.setGameMode(GameMode.ADVENTURE);
         player.setHealth(20);
         player.setFoodLevel(20);
@@ -210,26 +234,29 @@ public class  Arena {
     }
 
     public void removeSpectator(Player player, Optional<Arena> optionalArena) {
-
+        // restoring player
         optionalArena.get().spectating.remove(player.getUniqueId());
         rollBackManager.restore(player);
 
+        // make the players in the arena show those players
         for (UUID playerUUID : players) {
             Player arenaPlayer = Bukkit.getPlayer(playerUUID);
             if (arenaPlayer == null) return;
             arenaPlayer.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), player);
         }
 
+        // removing scoreboard and all spec ability
         player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         player.setGlowing(false);
         player.setAllowFlight(false);
     }
 
-
     public boolean isInGame(Player player) {
         return isPlaying(player) || isSpectating(player);
     }
 
+
+    // add player to the arena with the locations
     public void join(Player player, Optional<Arena> arena) {
         arena.get().addPlayer(player);
 
@@ -258,12 +285,15 @@ public class  Arena {
         return plugin.getConfig().getLocation("arenas." + name + ".locationTwo");
     }
 
+    // cleanup system
     public void cleanup() {
+        // ending cooldown if its not equals to null
         if (cooldownTask != null) cooldownTask.cancel();
         if (battleTask != null) battleTask.cancel();
 
         setState(ArenaState.DEFAULT);
 
+        // rollback players
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
@@ -278,11 +308,13 @@ public class  Arena {
             player.setAllowFlight(false);
         }
 
+        // clear the list
         players.clear();
         spectating.clear();
     }
 
     public void sendTitle(String str) {
+        // sending titles
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
@@ -297,6 +329,7 @@ public class  Arena {
     }
 
     private void giveItems() {
+        // give players
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getInventory().clear();
@@ -357,19 +390,22 @@ public class  Arena {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = manager.getNewScoreboard();
         List<String> scoreboardLines = new ArrayList<>();
-        Objective objective = scoreboard.registerNewObjective("ice", "dummy", ColorUtils.color("&#855010&lNutellaClub &7| &fקרבות"));
+        Objective objective = scoreboard.registerNewObjective("ice",
+                "dummy",
+                ColorUtils.color("&#855010&lNutellaClub &7| &fקרבות"));
         scoreboardLines.add("&f");
 
+        // players scoreboard
         if (isPlaying(player)) {
 
             if (arenaState == ArenaState.DEFAULT) {
-
+            // adding those lines if the state is default
                 scoreboardLines.add("&r ");
                 scoreboardLines.add("&fשחקנים&8: &a" + players.size() + "/2");
                 scoreboardLines.add("&cמחכה לעוד שחקנים...");
 
             } else if (arenaState == ArenaState.COOLDOWN) {
-
+                // adding those lines if the state is cooldown
                 scoreboardLines.add("&r ");
                 scoreboardLines.add("&fשחקנים&8: &a" + players.size() + "/2");
                 if (cooldownTask != null)
@@ -387,6 +423,7 @@ public class  Arena {
                 if (battleTask != null)
                     scoreboardLines.add("&fהמשחק נגמר בעוד&8: &c" + battleTask.getTimer() / 60 + "&8:&c" + battleTask.getTimer() % 60);
             }
+            // spectators scoreboard
 
         } else if (isSpectating(player)) {
             scoreboardLines.add("&r");
@@ -418,6 +455,7 @@ public class  Arena {
     }
 
     public void updateScoreBoard() {
+        // setting the scoreboard too
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
@@ -432,11 +470,11 @@ public class  Arena {
     }
 
     public void playsound(Sound sound) {
+        // playsound to players
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
             player.playSound(player, sound, 1, 1);
-
         }
 
         for (UUID playerUUID : spectating) {

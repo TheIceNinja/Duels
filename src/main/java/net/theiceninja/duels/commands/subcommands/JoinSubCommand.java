@@ -24,7 +24,7 @@ public class JoinSubCommand implements SubCommand {
 
         Optional<Arena> optionalArena = arenaManager.findArena(args[1]);
 
-        if (!optionalArena.isPresent()) {
+        if (optionalArena.isEmpty()) {
             player.sendMessage(ColorUtils.color("&cאין שום ארנות עם השם הזה."));
             return;
         }

@@ -24,7 +24,7 @@ public class QuitSubCommand implements SubCommand {
         Optional<Arena> optionalArena = arenaManager.getArenas().stream().filter(arena ->
                 arena.isPlaying(player) || arena.isSpectating(player)).findAny();
 
-        if (!optionalArena.isPresent()) {
+        if (optionalArena.isEmpty()) {
             player.sendMessage(ColorUtils.color("&cאתה לא משחק!"));
             return;
         }

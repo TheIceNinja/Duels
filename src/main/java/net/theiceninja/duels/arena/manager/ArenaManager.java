@@ -15,12 +15,14 @@ public class ArenaManager {
     @Getter
     private List<Arena> arenas = new ArrayList<>();
 
+    // add the arena on the creation
     public void addArena(Arena arena, DuelsPlugin plugin) {
         arenas.add(arena);
         plugin.getConfig().set("arenas." + arena.getName() + ".name", arena.getName());
     }
 
     public void removeArena(String arenaName, DuelsPlugin plugin) {
+        // removing the arena if that equals the name
         arenas.removeIf(arena1 ->
                 arena1.getName().equalsIgnoreCase(arenaName));
 
@@ -32,17 +34,18 @@ public class ArenaManager {
         for (String key : plugin.getConfig().getConfigurationSection("arenas").getKeys(false)) {
             ConfigurationSection configSection = plugin.getConfig().getConfigurationSection("arenas." + key);
             if (configSection == null) return;
-
+            // loads all arena from database
             Location spawnLocationOne = configSection.getLocation("spawnLocationOne");
             Location spawnLocationTwo = configSection.getLocation("spawnLocationTwo");
             String name = configSection.getString("name");
-            Arena arena = new Arena(name, spawnLocationOne, spawnLocationTwo, plugin);
+            Arena arena = new Arena(name, spawnLocationOne, spawnLocationTwo, this, plugin);
             plugin.getServer().getPluginManager().registerEvents(new ArenaListeners(arena), plugin);
 
              arenas.add(arena);
         }
     }
 
+    // get the arena state with custom string
     public String getArenaStateToString(Arena arena) {
         if (arena.getArenaState() == ArenaState.DEFAULT) return "&#F3190Fמצב מכובה";
 
@@ -53,6 +56,7 @@ public class ArenaManager {
         return null;
     }
 
+    // find the arena by the name
     public Optional<Arena> findArena(String arenaName) {
         return getArenas().stream().filter(arena1 ->
                 arena1.getName().equalsIgnoreCase(arenaName)).findAny();

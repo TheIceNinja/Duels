@@ -18,6 +18,7 @@ import java.util.Locale;
 
 public class DuelPanelCommand implements CommandExecutor, TabCompleter {
 
+    // subcommands - add all the subcommands.
     private List<SubCommand> subCommands = new ArrayList<>();
 
     private final ArenaManager arenaManager;

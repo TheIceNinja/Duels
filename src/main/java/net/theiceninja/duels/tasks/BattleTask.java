@@ -24,6 +24,7 @@ public class BattleTask extends BukkitRunnable {
             return;
         }
 
+        // update the scoreboard if the cooldown is not 0
         arena.updateScoreBoard();
     }
 }

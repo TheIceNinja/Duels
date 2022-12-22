@@ -20,11 +20,13 @@ public class CooldownTask extends BukkitRunnable {
 
         if (timer <= 0) {
             cancel();
+            // start the game
             arena.setState(ArenaState.ACTIVE);
             arena.playsound(Sound.BLOCK_NOTE_BLOCK_BIT);
             return;
         }
 
+        // while the cooldown, send titles, play custom sound, and update the scoreboard
         arena.sendTitle("&#0FBCF3המשחק יתחיל בעוד&8: &e" + timer);
         arena.playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
         arena.updateScoreBoard();

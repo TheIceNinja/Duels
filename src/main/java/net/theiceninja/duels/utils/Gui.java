@@ -43,6 +43,7 @@ public class Gui {
         return inventory;
     }
 
+    // soon
     public static Inventory spectatingGUI(Arena arena) {
         Inventory inventory = createInv(9, "&8מצב צופה");
 

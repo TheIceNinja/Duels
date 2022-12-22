@@ -33,13 +33,14 @@ public class ArenaSetupManager implements Listener {
     private final DuelsPlugin plugin;
     private final ArenaManager arenaManager;
 
+    // setup items
     private ItemStack setLocationItem = ItemBuilder.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&#F1CA16קביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
     private ItemStack save = ItemBuilder.createItem(Material.GREEN_WOOL, 1, ColorUtils.color("&#12A459שמירת ארנה &7(לחיצה ימנית)"));
 
     private ItemStack cancel = ItemBuilder.createItem(Material.BARRIER, 1, ColorUtils.color("&#F03D15מחיקת ארנה &7(לחיצה ימנית)"));
 
-
     public void addToSetup(Player player, Arena arena) {
+        // save the players and register the event (and put on the list with the arena)
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         rollBackManager.save(player);
         setup.put(player.getUniqueId(), arena);
@@ -54,9 +55,13 @@ public class ArenaSetupManager implements Listener {
     }
 
     public void removeFromSetup(Player player) {
+        // unregister the event (no double messages)
         HandlerList.unregisterAll(this);
+
+        // restore players and remove from the list
         rollBackManager.restore(player);
         setup.remove(player.getUniqueId());
+
         player.playSound(player, Sound.ENTITY_WITHER_DEATH, 1, 1);
         player.sendMessage(ColorUtils.color("&#F03D15ביטלת את מצב יצירת ארנה!"));
     }
@@ -75,6 +80,7 @@ public class ArenaSetupManager implements Listener {
         Arena arena = setup.get(player.getUniqueId());
         ItemStack item = event.getItem();
 
+        // items check
         if (item.isSimilar(setLocationItem)) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 arena.saveLocation(plugin, player.getLocation(), "locationOne");
@@ -87,19 +93,24 @@ public class ArenaSetupManager implements Listener {
         } else if (item.isSimilar(save)) {
             if (!(event.getAction() == Action.RIGHT_CLICK_AIR)) return;
 
+            // check if the locations are null, if null player need to set them
             if (arena.getSpawnLocationOne() == null || arena.getSpawnLocationTwo() == null) {
                 player.sendMessage(ColorUtils.color("&cאתה לא יכול לצאת ממצב יצירת הארנות כיוון שלא סיימת את מלאכתך."));
                 return;
             }
 
+            // worlds need to have keepInventory(No dropping items) and immediate spawn.
             player.getWorld().setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
             player.getWorld().setGameRule(GameRule.KEEP_INVENTORY, true);
 
+            // save config(the arena will be saved)  and remove from the list
             plugin.saveConfig();
             removeFromSetup(player);
         } else if (item.isSimilar(cancel)) {
+            // cancel all the event and remove the arena
             arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
             removeFromSetup(event.getPlayer());
+            // reload the config(so the arena will not be on the config)
             plugin.reloadConfig();
         }
     }
@@ -107,9 +118,10 @@ public class ArenaSetupManager implements Listener {
     @EventHandler
     private void onQuit(PlayerQuitEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
-
+        // if player quits the arena will be deleted
         arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
         removeFromSetup(event.getPlayer());
+        // reload the config(so the arena will not be on the config)
         plugin.reloadConfig();
     }
 

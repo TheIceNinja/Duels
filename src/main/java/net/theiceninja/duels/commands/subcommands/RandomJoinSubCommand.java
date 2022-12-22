@@ -24,7 +24,7 @@ public class RandomJoinSubCommand implements SubCommand {
             return;
         }
 
-        if (!optionalArena.isPresent()) {
+        if (optionalArena.isEmpty()) {
             player.sendMessage(ColorUtils.color("&cאין ארנות שתוכל לשחק בהם."));
             return;
         }

@@ -32,6 +32,7 @@ public class ArenaListeners implements Listener {
     private void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
+        // check if the player is playing or spectating and remove from the list.
         if (getArena().isPlaying(player)) {
             arena.removePlayer(player);
         } else if (getArena().isSpectating(player)) {
@@ -44,10 +45,13 @@ public class ArenaListeners implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
+
+        // if arena is not active cancel the damage(so the players will not die..
         if (getArena().isPlaying(player)) {
             if (arena.getArenaState() != ArenaState.ACTIVE)
                 event.setCancelled(true);
         } else if (arena.isSpectating(player)) {
+            // cancel damage if he is spec
             event.setCancelled(true);
         }
     }
@@ -60,12 +64,14 @@ public class ArenaListeners implements Listener {
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
+        // cancel pvp between players.
         if (arena.isPlaying(damager) && arena.isSpectating(damaged)) event.setCancelled(true);
         else if (arena.isPlaying(damaged) && arena.isSpectating(damager)) event.setCancelled(true);
     }
 
     @EventHandler
     private void onDeath(PlayerDeathEvent event) {
+        // kill messages will be empty
         if (arena.getArenaState() == ArenaState.ACTIVE) event.setDeathMessage(null);
     }
 
@@ -74,6 +80,7 @@ public class ArenaListeners implements Listener {
         if (!arena.isPlaying(event.getPlayer())) return;
 
         Player player = event.getPlayer();
+        // removing the player from the list
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -90,10 +97,12 @@ public class ArenaListeners implements Listener {
         event.setCancelled(true);
     }
 
+    // soon
     @EventHandler
     private void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
+        // if he is in game he cant click
         if (!getArena().isInGame(player)) return;
         event.setCancelled(true);
 
@@ -119,9 +128,9 @@ public class ArenaListeners implements Listener {
         String itemName = event.getItem().getItemMeta().getDisplayName();
         Player player = event.getPlayer();
 
-        if (player == null) return;
         if (itemName.equalsIgnoreCase(ColorUtils.color("&cעזיבת משחק &7(לחיצה ימנית)"))) {
 
+            // check if the player is on the list and remove if spec or in game
             if (arena.getArenaState() != ArenaState.ACTIVE) {
                 if (arena.isPlaying(player)) arena.removePlayer(player);
             } else if (arena.getArenaState() == ArenaState.ACTIVE) {
@@ -132,6 +141,7 @@ public class ArenaListeners implements Listener {
                 }
             }
         } else if (itemName.equalsIgnoreCase(ColorUtils.color("&eמציאת שחקן &7(לחיצה ימנית)"))) {
+            // soon
             player.openInventory(Gui.spectatingGUI(arena));
         }
     }
@@ -149,6 +159,7 @@ public class ArenaListeners implements Listener {
         Player player = event.getPlayer();
         if (!arena.isInGame(player)) return;
 
+        // cancel all the commands accept one
         if (!event.getMessage().equalsIgnoreCase("/duelpanel quit")) {
             event.setCancelled(true);
             player.sendMessage(ColorUtils.color(
@@ -218,11 +229,12 @@ public class ArenaListeners implements Listener {
     private void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         if (!getArena().isInGame(player)) return;
-
+        // sending the arena messages
         arena.sendMessage(getStatePlayerEnglish(player) + player.getDisplayName() + "&8: &f" + event.getMessage());
         event.setCancelled(true);
     }
 
+    // gets the player state
     private String getStatePlayerEnglish(Player player) {
         if (arena.isPlaying(player)) return "&#0FE716&lAlive &#2AE886";
 

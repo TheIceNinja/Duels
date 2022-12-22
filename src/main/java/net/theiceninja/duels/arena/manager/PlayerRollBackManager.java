@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public class PlayerRollBackManager {
 
+    // backup player inventory and location and health and more.
     private final Map<UUID, ItemStack[]> playerInventory = new HashMap<>();
     private final Map<UUID, ItemStack[]> playerArmor = new HashMap<>();
     private final Map<UUID, Location> playerLoc = new HashMap<>();
