@@ -280,11 +280,11 @@ public class  Arena {
         return spectating.contains(player.getUniqueId());
     }
 
-    public Location getLocationOne() {
+    private Location getLocationOne() {
         return plugin.getConfig().getLocation("arenas." + name + ".locationOne");
     }
 
-    public Location getLocationTwo() {
+    private Location getLocationTwo() {
         return plugin.getConfig().getLocation("arenas." + name + ".locationTwo");
     }
 
