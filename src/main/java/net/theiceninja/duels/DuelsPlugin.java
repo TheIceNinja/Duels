@@ -20,7 +20,6 @@ public class DuelsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        super.onEnable();
         getConfig().options().copyDefaults(false);
         saveDefaultConfig();
 
@@ -41,9 +40,7 @@ public class DuelsPlugin extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-        super.onDisable();
-    }
+    public void onDisable() {}
 
     private void connect() {
         database = new Database("localhost", "root", "", "statistics", 3306);

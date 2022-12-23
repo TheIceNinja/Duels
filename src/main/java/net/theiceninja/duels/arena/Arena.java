@@ -41,6 +41,7 @@ public class  Arena {
     private BattleTask battleTask;
     private CooldownTask cooldownTask;
 
+    // loading arena(onEnable)
     public Arena(String name, Location spawnLocationOne, Location spawnLocationTwo, ArenaManager arenaManager, DuelsPlugin plugin) {
         this.arenaManager = arenaManager;
         this.plugin = plugin;
@@ -51,7 +52,7 @@ public class  Arena {
         rollBackManager = new PlayerRollBackManager();
     }
 
-    // loading all the from the config
+    // loading all the from the config(arena creation)
     public Arena(String name, ArenaState arenaState, DuelsPlugin plugin, ArenaManager arenaManager) {
         this.name = name;
         this.arenaState = arenaState;
