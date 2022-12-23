@@ -20,7 +20,6 @@ public class DuelsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        super.onEnable();
 
         getConfig().options().copyDefaults(false);
         saveDefaultConfig();
@@ -38,12 +37,10 @@ public class DuelsPlugin extends JavaPlugin {
         // check if there are any arenas in the config, if there is arena load.
         if (getConfig().getConfigurationSection("arenas") != null)
         arenaManager.load(this);
-
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
     }
 
     private void connect() {
