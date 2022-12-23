@@ -41,6 +41,9 @@ public class GuiListener implements Listener {
             if (item.equalsIgnoreCase(ColorUtils.color("&cסגירה"))) {
                 player.closeInventory();
                 player.sendMessage(ColorUtils.color("&cסגרת את תפריט הקרבות."));
+            } else if (item.equalsIgnoreCase(ColorUtils.color("&#E8BD2Aכניסה מהירה"))) {
+                player.closeInventory();
+                player.performCommand("duelpanel randomJoin");
             }
 
             event.setCancelled(true);

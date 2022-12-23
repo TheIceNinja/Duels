@@ -38,6 +38,11 @@ public class Gui {
                 "&cסגירה"
         ));
 
+        inventory.setItem(32, ItemCreator.createItem(
+                Material.ENDER_PEARL,
+                1,
+                "&#E8BD2Aכניסה מהירה"
+        ));
 
         return inventory;
     }
