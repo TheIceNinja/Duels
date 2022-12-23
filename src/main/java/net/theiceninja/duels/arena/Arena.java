@@ -91,9 +91,7 @@ public class  Arena {
                 cooldownTask.runTaskTimer(plugin, 0, 20);
             }
             case ACTIVE -> {
-
                 // teleporting to the locations
-
                 Player player1 = Bukkit.getPlayer(players.get(0));
                 if (player1 == null) return;
                 player1.teleport(getLocationOne());
