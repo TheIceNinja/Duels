@@ -70,6 +70,7 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> complete = new ArrayList<>();
+        
         if (complete.isEmpty() && args.length == 1 && sender.hasPermission("duels.admin")) {
             complete.add("create");
             complete.add("list");
@@ -86,6 +87,7 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
             complete.add("join");
             complete.add("spectate");
         }
+
         List<String> result = new ArrayList<>();
         if (args.length == 1) {
             for (String a : complete) {
