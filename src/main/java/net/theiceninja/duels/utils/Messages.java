@@ -6,5 +6,4 @@ public class Messages {
 
     public static String NO_PERMISSION = ColorUtils.color("&cסליחה, אבל אין לך גישה לבצע את הפקודה הזאת.");
 
-
 }

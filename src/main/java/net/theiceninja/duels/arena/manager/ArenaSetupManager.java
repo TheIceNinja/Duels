@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.utils.ColorUtils;
-import net.theiceninja.duels.utils.ItemBuilder;
+import net.theiceninja.duels.utils.ItemCreator;
 import org.bukkit.GameMode;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -33,10 +33,10 @@ public class ArenaSetupManager implements Listener {
     private final ArenaManager arenaManager;
 
     // setup items
-    private ItemStack setLocationItem = ItemBuilder.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&#F1CA16קביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
-    private ItemStack save = ItemBuilder.createItem(Material.GREEN_WOOL, 1, ColorUtils.color("&#12A459שמירת ארנה &7(לחיצה ימנית)"));
+    private ItemStack setLocationItem = ItemCreator.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&#F1CA16קביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
+    private ItemStack save = ItemCreator.createItem(Material.GREEN_WOOL, 1, ColorUtils.color("&#12A459שמירת ארנה &7(לחיצה ימנית)"));
 
-    private ItemStack cancel = ItemBuilder.createItem(Material.BARRIER, 1, ColorUtils.color("&#F03D15מחיקת ארנה &7(לחיצה ימנית)"));
+    private ItemStack cancel = ItemCreator.createItem(Material.BARRIER, 1, ColorUtils.color("&#F03D15מחיקת ארנה &7(לחיצה ימנית)"));
 
     public void addToSetup(Player player, Arena arena) {
         // save the players and register the event (and put on the list with the arena)

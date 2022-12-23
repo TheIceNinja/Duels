@@ -8,7 +8,8 @@ import net.theiceninja.duels.arena.manager.*;
 import net.theiceninja.duels.tasks.BattleTask;
 import net.theiceninja.duels.tasks.CooldownTask;
 import net.theiceninja.duels.utils.ColorUtils;
-import net.theiceninja.duels.utils.ItemBuilder;
+
+import net.theiceninja.duels.utils.ItemCreator;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -136,7 +137,7 @@ public class  Arena {
         player.setFoodLevel(20);
         sendMessage("&7[&a+&7] &2" + player.getDisplayName());
         player.setGameMode(GameMode.ADVENTURE);
-        player.getInventory().setItem(8, ItemBuilder.createItem(
+        player.getInventory().setItem(8, ItemCreator.createItem(
                 Material.RED_DYE,
                 1,
                 "&cעזיבת משחק &7(לחיצה ימנית)"
@@ -217,7 +218,7 @@ public class  Arena {
         player.setFoodLevel(20);
         player.setGlowing(true);
         player.setAllowFlight(true);
-        player.getInventory().setItem(8, ItemBuilder.createItem(
+        player.getInventory().setItem(8, ItemCreator.createItem(
                 Material.RED_DYE,
                 1,
                 "&cעזיבת משחק &7(לחיצה ימנית)"
@@ -336,50 +337,50 @@ public class  Arena {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getInventory().clear();
 
-            player.getInventory().setItem(3, ItemBuilder.createItem(
+            player.getInventory().setItem(3, ItemCreator.createItem(
                     Material.DIAMOND_SWORD,
                     1,
                     "&bחרב יהלום"
             ));
 
-            player.getInventory().setItem(0, ItemBuilder.createItem(
+            player.getInventory().setItem(0, ItemCreator.createItem(
                     Material.DIAMOND_AXE,
                     1,
                     "&bגרזן יהלום"
             ));
 
-            player.getInventory().setItem(1, ItemBuilder.createItem(
+            player.getInventory().setItem(1, ItemCreator.createItem(
                     Material.BOW,
                     1,
                     "&6קשת"
             ));
-            player.getInventory().setItem(2, ItemBuilder.createItem(
+            player.getInventory().setItem(2, ItemCreator.createItem(
                     Material.ARROW,
                     10,
                     "&fחצים"
             ));
-            player.getInventory().setBoots(ItemBuilder.createItem(
+            player.getInventory().setBoots(ItemCreator.createItem(
                     Material.DIAMOND_BOOTS,
                     1,
                     "&bמגפי יהלום"
             ));
-            player.getInventory().setHelmet(ItemBuilder.createItem(
+            player.getInventory().setHelmet(ItemCreator.createItem(
                     Material.DIAMOND_HELMET,
                     1,
                     "&bקסדת יהלום"
             ));
-            player.getInventory().setChestplate(ItemBuilder.createItem(
+            player.getInventory().setChestplate(ItemCreator.createItem(
                     Material.DIAMOND_CHESTPLATE,
                     1,
                     "&bשיריון יהלום"
             ));
-            player.getInventory().setLeggings(ItemBuilder.createItem(
+            player.getInventory().setLeggings(ItemCreator.createItem(
                     Material.DIAMOND_LEGGINGS,
                     1,
                     "&bמכנסי יהלום"
             ));
 
-            player.getInventory().setItemInOffHand(ItemBuilder.createItem(
+            player.getInventory().setItemInOffHand(ItemCreator.createItem(
                     Material.SHIELD,
                     1,
                     "&6מגן"

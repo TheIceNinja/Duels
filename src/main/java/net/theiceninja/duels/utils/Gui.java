@@ -20,7 +20,7 @@ public class Gui {
 
         // TODO: do max arenas in inventory(26)
         for (Arena arena : arenaManager.getArenas()) {
-          ItemStack arenaItem = ItemBuilder.createItem(
+          ItemStack arenaItem = ItemCreator.createItem(
                     Material.BLUE_ICE,
                     1,
                     "&bארנה&8: &6" + arena.getName(),
@@ -34,7 +34,7 @@ public class Gui {
 
             inventory.addItem(arenaItem);
         }
-        inventory.setItem(31, ItemBuilder.createItem(
+        inventory.setItem(31, ItemCreator.createItem(
                 Material.BARRIER,
                 1,
                 "&cסגירה"
@@ -60,7 +60,7 @@ public class Gui {
             inventory.addItem(skull);
         }
 
-        inventory.setItem(8, ItemBuilder.createItem(
+        inventory.setItem(8, ItemCreator.createItem(
                 Material.BARRIER,
                 1,
                 "&cסגירה"

@@ -7,7 +7,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class ItemBuilder {
+public class ItemCreator {
 
     public static ItemStack createItem(Material material, int amount, String displayName, String... lore) {
 
