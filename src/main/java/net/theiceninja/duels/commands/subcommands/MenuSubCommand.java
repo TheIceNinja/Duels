@@ -11,7 +11,6 @@ public class MenuSubCommand implements SubCommand {
 
     private ArenaManager arenaManager;
 
-
     @Override
     public void execute(Player player, String[] args) {
 

@@ -1,5 +1,6 @@
 package net.theiceninja.duels.commands.subcommands;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
@@ -7,10 +8,10 @@ import net.theiceninja.duels.utils.ColorUtils;
 import net.theiceninja.duels.utils.Messages;
 import org.bukkit.entity.Player;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ListSubCommand implements SubCommand {
 
-    private final ArenaManager arenaManager;
+    private ArenaManager arenaManager;
 
     @Override
     public void execute(Player player, String[] args) {

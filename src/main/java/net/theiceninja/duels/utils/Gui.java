@@ -1,6 +1,5 @@
 package net.theiceninja.duels.utils;
 
-import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import org.bukkit.Bukkit;
@@ -12,7 +11,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class Gui {
 
     public static Inventory arenasList(ArenaManager arenaManager) {

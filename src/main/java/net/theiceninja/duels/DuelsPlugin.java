@@ -20,20 +20,21 @@ public class DuelsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        super.onEnable();
         getConfig().options().copyDefaults(false);
         saveDefaultConfig();
 
-        connect();
+       // connect();
 
         // playerStats = new PlayerStats();
        // this.getServer().getPluginManager().registerEvents(playerStats, this);
 
         // register listeners and commands
+
+        arenaManager = new ArenaManager();
         registerCommands();
         registerListeners();
 
-        arenaManager = new ArenaManager();
         // check if there are any arenas in the config, if there is arena load.
         if (getConfig().getConfigurationSection("arenas") != null)
         arenaManager.load(this);
@@ -41,6 +42,7 @@ public class DuelsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        super.onDisable();
     }
 
     private void connect() {

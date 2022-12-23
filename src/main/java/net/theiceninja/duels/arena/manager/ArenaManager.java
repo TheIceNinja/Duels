@@ -1,6 +1,7 @@
 package net.theiceninja.duels.arena.manager;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.listeners.ArenaListeners;
@@ -14,7 +15,8 @@ import java.util.Optional;
 public class ArenaManager {
 
     @Getter
-    private List<Arena> arenas = new ArrayList<>();
+    private final List<Arena> arenas = new ArrayList<>();
+
 
     // add the arena on the creation
     public void addArena(Arena arena, DuelsPlugin plugin) {
