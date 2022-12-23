@@ -18,6 +18,7 @@ public class BattleTask extends BukkitRunnable {
 
         if (timer <= 0) {
             cancel();
+            // game over
             arena.sendTitle("&#0FF36Cהמשחק נגמר!");
             arena.sendMessage("&cאין מנצח? המשחק נגמר!");
             arena.cleanup();
