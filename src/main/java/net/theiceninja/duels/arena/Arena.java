@@ -389,7 +389,7 @@ public class  Arena {
         }
     }
 
-    public void setScoreboard(Player player) {
+    private void setScoreboard(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = manager.getNewScoreboard();
         List<String> scoreboardLines = new ArrayList<>();
