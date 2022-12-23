@@ -4,7 +4,7 @@ import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import net.theiceninja.duels.commands.subcommands.*;
 import net.theiceninja.duels.utils.ColorUtils;
-import net.theiceninja.duels.utils.MessageUtils;
+import net.theiceninja.duels.utils.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,7 +42,7 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage(MessageUtils.MUST_BE_PLAYER_ERROR);
+            sender.sendMessage(Messages.MUST_BE_PLAYER_ERROR);
             return true;
         }
 

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import net.theiceninja.duels.utils.ColorUtils;
-import net.theiceninja.duels.utils.MessageUtils;
+import net.theiceninja.duels.utils.Messages;
 import org.bukkit.entity.Player;
 
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class ListSubCommand implements SubCommand {
     public void execute(Player player, String[] args) {
 
         if (!player.hasPermission("duels.admin")) {
-            player.sendMessage(MessageUtils.NO_PERMISSION);
+            player.sendMessage(Messages.NO_PERMISSION);
             return;
         }
 

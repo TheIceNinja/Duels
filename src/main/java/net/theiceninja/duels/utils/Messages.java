@@ -1,6 +1,6 @@
 package net.theiceninja.duels.utils;
 
-public class MessageUtils {
+public class Messages {
 
     public static String MUST_BE_PLAYER_ERROR = ColorUtils.color("&cOnly a player can execute this command!");
 

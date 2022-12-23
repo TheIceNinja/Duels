@@ -24,15 +24,16 @@ import java.util.UUID;
 @Getter @Setter
 public class  Arena {
 
-    // arena
     private String name;
     private Location spawnLocationOne;
     private Location spawnLocationTwo;
-    private ArenaSetupManager arenaSetupManager;
+    private ArenaState arenaState;
+
     private final List<UUID> players = new ArrayList<>();
     private final List<UUID> spectating = new ArrayList<>();
+
     private PlayerRollBackManager rollBackManager;
-    private ArenaState arenaState;
+    private ArenaSetupManager arenaSetupManager;
     private final ArenaManager arenaManager;
     private final DuelsPlugin plugin;
     private BattleTask battleTask;
