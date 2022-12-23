@@ -37,6 +37,7 @@ public class  Arena {
     private ArenaSetupManager arenaSetupManager;
     private final ArenaManager arenaManager;
     private final DuelsPlugin plugin;
+
     private BattleTask battleTask;
     private CooldownTask cooldownTask;
 
@@ -63,7 +64,6 @@ public class  Arena {
 
     public void sendMessage(String message) {
         // sending messages to all players in the arena
-
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
