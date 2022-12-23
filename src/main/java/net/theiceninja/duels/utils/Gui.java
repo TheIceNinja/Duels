@@ -18,6 +18,7 @@ public class Gui {
     public static Inventory arenasList(ArenaManager arenaManager) {
         Inventory inventory = createInv(36, "&8ארנות");
 
+        // TODO: do max arenas in inventory(26)
         for (Arena arena : arenaManager.getArenas()) {
           ItemStack arenaItem = ItemBuilder.createItem(
                     Material.BLUE_ICE,

@@ -1,9 +1,10 @@
 package net.theiceninja.duels.utils;
 
 public class ColorUtils {
-    public static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
 
     public static String color(String text) {
+
+        String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
 
         String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
 
