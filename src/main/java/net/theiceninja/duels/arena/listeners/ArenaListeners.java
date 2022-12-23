@@ -1,8 +1,9 @@
-package net.theiceninja.duels.arena.manager;
+package net.theiceninja.duels.arena.listeners;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
+import net.theiceninja.duels.arena.manager.ArenaState;
 import net.theiceninja.duels.utils.ColorUtils;
 import net.theiceninja.duels.utils.Gui;
 import org.bukkit.Bukkit;

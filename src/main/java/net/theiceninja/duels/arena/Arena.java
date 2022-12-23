@@ -3,6 +3,7 @@ package net.theiceninja.duels.arena;
 import lombok.Getter;
 import lombok.Setter;
 import net.theiceninja.duels.DuelsPlugin;
+import net.theiceninja.duels.arena.listeners.ArenaListeners;
 import net.theiceninja.duels.arena.manager.*;
 import net.theiceninja.duels.tasks.BattleTask;
 import net.theiceninja.duels.tasks.CooldownTask;

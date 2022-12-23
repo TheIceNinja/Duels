@@ -3,6 +3,7 @@ package net.theiceninja.duels.arena.manager;
 import lombok.Getter;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.Arena;
+import net.theiceninja.duels.arena.listeners.ArenaListeners;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
