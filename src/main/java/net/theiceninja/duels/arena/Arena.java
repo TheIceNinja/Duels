@@ -144,7 +144,6 @@ public class  Arena {
     }
 
     public void removePlayer(Player player) {
-
         // restore the inventory (rollback) and removing from the list
         sendMessage("&7[&c-&7] &4" + player.getDisplayName());
         player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
@@ -205,7 +204,7 @@ public class  Arena {
         rollBackManager.save(player);
         player.teleport(optionalArena.get().getLocationOne());
 
-        // unshow players (spec)
+        // unshod players (spec)
         for (UUID playerUUID : optionalArena.get().players) {
             Player battle = Bukkit.getPlayer(playerUUID);
             battle.hidePlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), player);
