@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 @NoArgsConstructor
 public class PlayerStats implements Listener {
 
-
     // this stuff in progress
     private String uuid;
     private int wins;
@@ -22,7 +21,7 @@ public class PlayerStats implements Listener {
 
     public void addLose(Player player, Database database) {
         PlayerStats playerStats = getPlayerStatsFromDatabase(player, database);
-        lose = playerStats.getLose() + 1;
+        playerStats.lose++;
         playerStats.updatePlayerStats(database);
     }
 

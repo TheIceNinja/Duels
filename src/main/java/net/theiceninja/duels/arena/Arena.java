@@ -392,7 +392,7 @@ public class  Arena {
         List<String> scoreboardLines = new ArrayList<>();
         Objective objective = scoreboard.registerNewObjective("ice",
                 "dummy",
-                ColorUtils.color("&#855010&lNutellaClub &7| &fקרבות"));
+                ColorUtils.color("&#389efb&lS&#55b3fc&lk&#73c9fc&ly&#90defd&lu&#adf3fd&lp &7| &fקרבות"));
         scoreboardLines.add("&f");
 
         // players scoreboard
@@ -443,7 +443,7 @@ public class  Arena {
         }
 
         scoreboardLines.add("&r ");
-        scoreboardLines.add("&7play.nutellaclub.ml");
+        scoreboardLines.add("&7play.skyup.cf");
 
         for (int i = 0; i < scoreboardLines.size(); i++) {
             String line = ColorUtils.color(scoreboardLines.get(i));
