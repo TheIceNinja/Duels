@@ -27,5 +27,9 @@ public class BattleTask extends BukkitRunnable {
 
         // update the scoreboard if the cooldown is not 0
         arena.updateScoreBoard();
+
+        if (timer == 10 || timer <= 5)
+            arena.sendMessage("&cהמשחק נגמר בעוד&8: &e" + timer);
+
     }
 }

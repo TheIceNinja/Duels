@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +28,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ArenaSetupManager implements Listener {
 
-    private Map<UUID, Arena> setup = new HashMap<>();
+    private final Map<UUID, Arena> setup = new HashMap<>();
     private final PlayerRollBackManager rollBackManager;
     private final DuelsPlugin plugin;
     private final ArenaManager arenaManager;
@@ -142,4 +143,16 @@ public class ArenaSetupManager implements Listener {
 
         event.setCancelled(true);
     }
+
+    @EventHandler
+    private void onDrop(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        if (!isOnSetup(player)) return;
+
+        ItemStack item = event.getItemDrop().getItemStack();
+        if (!item.isSimilar(cancel) || !item.isSimilar(save) || !item.isSimilar(setLocationItem)) return;
+
+        event.setCancelled(true);
+    }
+
 }

@@ -257,7 +257,6 @@ public class  Arena {
         return isPlaying(player) || isSpectating(player);
     }
 
-
     // add player to the arena with the locations
     public void join(Player player, Optional<Arena> arena) {
         arena.get().addPlayer(player);
