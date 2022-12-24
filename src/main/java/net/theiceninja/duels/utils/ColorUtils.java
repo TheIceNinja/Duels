@@ -1,5 +1,7 @@
 package net.theiceninja.duels.utils;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class ColorUtils {
 
     public static String color(String text) {
@@ -14,9 +16,9 @@ public class ColorUtils {
             if (texts[i].equalsIgnoreCase("&")) {
                 i++;
                 if (texts[i].charAt(0) == '#') {
-                    finalText.append(net.md_5.bungee.api.ChatColor.of(texts[i].substring(0, 7)) + texts[i].substring(7));
+                    finalText.append(ChatColor.of(texts[i].substring(0, 7)) + texts[i].substring(7));
                 } else {
-                    finalText.append(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', "&" + texts[i]));
+                    finalText.append(ChatColor.translateAlternateColorCodes('&', "&" + texts[i]));
                 }
             } else {
                 finalText.append(texts[i]);
