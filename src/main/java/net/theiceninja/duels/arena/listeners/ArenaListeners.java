@@ -134,7 +134,6 @@ public class ArenaListeners implements Listener {
 
             // check if the player is on the list and remove if spec or in game
             if (arena.getArenaState() != ArenaState.ACTIVE) {
-                Bukkit.getLogger().info("Event is being called");
                 if (arena.isPlaying(player)) arena.removePlayer(player);
             } else if (arena.getArenaState() == ArenaState.ACTIVE) {
 
