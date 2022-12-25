@@ -329,7 +329,6 @@ public class  Arena {
     }
 
     private void giveItems() {
-        // give players
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             player.getInventory().clear();
@@ -337,13 +336,13 @@ public class  Arena {
             player.getInventory().setItem(3, ItemCreator.createItem(
                     Material.DIAMOND_SWORD,
                     1,
-                    "&bחרב יהלום"
+                    "&#2AB1E8חרב יהלום"
             ));
 
             player.getInventory().setItem(0, ItemCreator.createItem(
                     Material.DIAMOND_AXE,
                     1,
-                    "&bגרזן יהלום"
+                    "&#2AB1E8גרזן יהלום"
             ));
 
             player.getInventory().setItem(1, ItemCreator.createItem(
@@ -359,22 +358,22 @@ public class  Arena {
             player.getInventory().setBoots(ItemCreator.createItem(
                     Material.DIAMOND_BOOTS,
                     1,
-                    "&bמגפי יהלום"
+                    "&#2AB1E8מגפי יהלום"
             ));
             player.getInventory().setHelmet(ItemCreator.createItem(
                     Material.DIAMOND_HELMET,
                     1,
-                    "&bקסדת יהלום"
+                    "&#2AB1E8קסדת יהלום"
             ));
             player.getInventory().setChestplate(ItemCreator.createItem(
                     Material.DIAMOND_CHESTPLATE,
                     1,
-                    "&bשיריון יהלום"
+                    "&#2AB1E8שיריון יהלום"
             ));
             player.getInventory().setLeggings(ItemCreator.createItem(
                     Material.DIAMOND_LEGGINGS,
                     1,
-                    "&bמכנסי יהלום"
+                    "&#2AB1E8מכנסי יהלום"
             ));
 
             player.getInventory().setItemInOffHand(ItemCreator.createItem(

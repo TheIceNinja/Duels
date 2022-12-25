@@ -5,10 +5,9 @@ import net.md_5.bungee.api.ChatColor;
 public class ColorUtils {
 
     public static String color(String text) {
+       final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
 
-        String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
-
-        String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
+       String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
 
         StringBuilder finalText = new StringBuilder();
 
