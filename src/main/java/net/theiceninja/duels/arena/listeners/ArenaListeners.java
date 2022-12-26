@@ -50,10 +50,12 @@ public class ArenaListeners implements Listener {
 
         // if arena is not active cancel the damage(so the players will not die..
         if (getArena().isPlaying(player)) {
-            if (arena.getArenaState() != ArenaState.ACTIVE)
-                event.setCancelled(true);
+            if (event.getCause() == EntityDamageEvent.DamageCause.DROWNING) event.setCancelled(true);
+
+            if (arena.getArenaState() != ArenaState.ACTIVE) event.setCancelled(true);
+
         } else if (arena.isSpectating(player)) {
-            // cancel damage if he is spec
+            // cancel damage if he is on spec mode
             event.setCancelled(true);
         }
     }

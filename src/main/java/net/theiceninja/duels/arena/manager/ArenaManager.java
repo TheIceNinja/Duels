@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.listeners.ArenaListeners;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -37,10 +38,12 @@ public class ArenaManager {
         for (String key : plugin.getConfig().getConfigurationSection("arenas").getKeys(false)) {
             ConfigurationSection configSection = plugin.getConfig().getConfigurationSection("arenas." + key);
             if (configSection == null) return;
-            // loads all arena from database
+
+            // loads all arena from config
             Location spawnLocationOne = configSection.getLocation("spawnLocationOne");
             Location spawnLocationTwo = configSection.getLocation("spawnLocationTwo");
             String name = configSection.getString("name");
+
             Arena arena = new Arena(name, spawnLocationOne, spawnLocationTwo, this, plugin);
             plugin.getServer().getPluginManager().registerEvents(new ArenaListeners(arena), plugin);
 

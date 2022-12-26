@@ -6,6 +6,7 @@ import net.theiceninja.duels.commands.DuelPanelCommand;
 import net.theiceninja.duels.db.Database;
 import net.theiceninja.duels.listeners.GuiListener;
 import net.theiceninja.duels.db.PlayerStats;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DuelsPlugin extends JavaPlugin {
@@ -35,8 +36,9 @@ public class DuelsPlugin extends JavaPlugin {
         registerListeners();
 
         // check if there are any arenas in the config, if there is arena load.
-        if (getConfig().getConfigurationSection("arenas") != null)
-        arenaManager.load(this);
+        if (getConfig().getConfigurationSection("arenas") != null) {
+            Bukkit.getScheduler().runTaskLater(this, () -> arenaManager.load(this), 20 * 5);
+        }
     }
 
     @Override
