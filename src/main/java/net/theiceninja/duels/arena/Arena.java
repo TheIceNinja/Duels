@@ -35,8 +35,8 @@ public class  Arena {
 
     private PlayerRollBackManager rollBackManager;
     private ArenaSetupManager arenaSetupManager;
+    private DuelsPlugin plugin;
     private final ArenaManager arenaManager;
-    private final DuelsPlugin plugin;
 
     private BattleTask battleTask;
     private CooldownTask cooldownTask;
