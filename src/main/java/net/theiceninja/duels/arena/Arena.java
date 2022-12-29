@@ -127,7 +127,7 @@ public class  Arena {
         // saving the player(inv and all of those stuff) and adding to the list
         rollBackManager.save(player);
         players.add(player.getUniqueId());
-        // update the scoreboard with out flicker to be 1/2 or 2/2
+        // update the scoreboard without flicker to be 1/2 or 2/2
         updateScoreBoard();
         playsound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
 
@@ -287,7 +287,7 @@ public class  Arena {
 
     // cleanup system
     public void cleanup() {
-        // ending cooldown if its not equals to null
+        // ending cooldown if it's not equals to null
         if (cooldownTask != null) cooldownTask.cancel();
         if (battleTask != null) battleTask.cancel();
 
