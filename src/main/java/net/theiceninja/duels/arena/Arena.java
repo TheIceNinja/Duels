@@ -87,6 +87,7 @@ public class  Arena {
                 // updates the scoreboard and showing cooldown
                 updateScoreBoard();
                 if (cooldownTask != null) cooldownTask.cancel();
+
                 cooldownTask = new CooldownTask(this);
                 cooldownTask.runTaskTimer(plugin, 0, 20);
             }
@@ -106,6 +107,7 @@ public class  Arena {
                 // run task that will check if the game cooldown ends
                 if (cooldownTask != null) cooldownTask.cancel();
                 if (battleTask != null) battleTask.cancel();
+
                 battleTask = new BattleTask(this);
                 battleTask.runTaskTimer(plugin, 0, 20);
             }
@@ -374,7 +376,6 @@ public class  Arena {
                     1,
                     "&#2AB1E8מכנסי יהלום"
             ));
-
             player.getInventory().setItemInOffHand(ItemCreator.createItem(
                     Material.SHIELD,
                     1,
@@ -406,15 +407,18 @@ public class  Arena {
                 // adding those lines if the state is cooldown
                 scoreboardLines.add("&r ");
                 scoreboardLines.add("&fשחקנים&8: &a" + players.size() + "/2");
+
                 if (cooldownTask != null)
                     scoreboardLines.add("&fהמשחק מתחיל בעוד&8: &e" + cooldownTask.getTimer());
 
             } else if (arenaState == ArenaState.ACTIVE) {
                 scoreboardLines.add("&r ");
                 Player opponent = Bukkit.getPlayer(players.get(0));
+
                 if (opponent == null) return;
                 if (opponent == player)
                     opponent = Bukkit.getPlayer(players.get(1));
+
                 scoreboardLines.add("&fהיריב שלך&8: &6" + opponent.getDisplayName());
                 scoreboardLines.add("&r ");
 
@@ -425,16 +429,18 @@ public class  Arena {
 
         } else if (isSpectating(player)) {
             scoreboardLines.add("&r");
+
             Player opponentOne = Bukkit.getPlayer(players.get(0));
             Player opponentTwo = Bukkit.getPlayer(players.get(1));
-            if (opponentTwo == null) return;
-            if (opponentOne == null) return;
+
+            if (opponentTwo == null || opponentOne == null) return;
 
             scoreboardLines.add("&fהאנשים במשחק&8:");
             scoreboardLines.add("&r");
             scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName());
-                scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
+            scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
             scoreboardLines.add("&r");
+
             if (battleTask != null)
                 scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &e" + battleTask.getTimer() / 60 + "&8:&e" + battleTask.getTimer() % 60);
 
