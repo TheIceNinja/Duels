@@ -52,7 +52,7 @@ public class  Arena {
         rollBackManager = new PlayerRollBackManager();
     }
 
-    // loading all the from the config(arena creation)
+    // loading all from the config(arena creation)
     public Arena(String name, ArenaState arenaState, DuelsPlugin plugin, ArenaManager arenaManager) {
         this.name = name;
         this.arenaState = arenaState;
@@ -308,7 +308,6 @@ public class  Arena {
             player.setAllowFlight(false);
         }
 
-        // clear the list
         players.clear();
         spectating.clear();
     }
@@ -454,7 +453,6 @@ public class  Arena {
     }
 
     public void updateScoreBoard() {
-        // setting the scoreboard too
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
@@ -469,7 +467,6 @@ public class  Arena {
     }
 
     public void playsound(Sound sound) {
-        // playsound to players
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
