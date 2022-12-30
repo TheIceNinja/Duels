@@ -21,13 +21,7 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
     // subcommands - add all the subcommands.
     private List<SubCommand> subCommands = new ArrayList<>();
 
-    private final ArenaManager arenaManager;
-
-    private final DuelsPlugin plugin;
-
     public DuelPanelCommand(ArenaManager arenaManager, DuelsPlugin plugin) {
-        this.arenaManager = arenaManager;
-        this.plugin = plugin;
 
         subCommands.add(new CreateSubCommand(arenaManager, plugin));
         subCommands.add(new ListSubCommand(arenaManager));
@@ -41,7 +35,6 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
         if (!(sender instanceof Player)) {
             sender.sendMessage(Messages.MUST_BE_PLAYER_ERROR);
             return true;

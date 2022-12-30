@@ -2,10 +2,14 @@ package net.theiceninja.duels.commands.subcommands;
 
 import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.DuelsPlugin;
+import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
+import net.theiceninja.duels.arena.manager.ArenaState;
 import net.theiceninja.duels.utils.ColorUtils;
 import net.theiceninja.duels.utils.Messages;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DeleteSubCommand implements SubCommand {
@@ -16,7 +20,6 @@ public class DeleteSubCommand implements SubCommand {
 
     @Override
     public void execute(Player player, String[] args) {
-
         if (!player.hasPermission("duels.admin")) {
             player.sendMessage(Messages.NO_PERMISSION);
             return;
@@ -27,8 +30,15 @@ public class DeleteSubCommand implements SubCommand {
             return;
         }
 
-        if (plugin.getConfig().getString("arenas." + args[1]) == null) {
+        Optional<Arena> optionalArena = arenaManager.findArena(args[1]);
+
+        if (optionalArena.isEmpty()) {
             player.sendMessage(ColorUtils.color("&cהארנה הזאת לא קיימת, לכן אי אפשר למחוק."));
+            return;
+        }
+
+        if (optionalArena.get().getArenaState() != ArenaState.DEFAULT) {
+            player.sendMessage(ColorUtils.color("&cהארנה כרגע במצב פעיל, לכן לא תוכל למחוק את הארנה."));
             return;
         }
 
