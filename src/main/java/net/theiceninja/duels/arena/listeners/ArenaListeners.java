@@ -197,16 +197,6 @@ public class ArenaListeners implements Listener {
     }
 
     @EventHandler
-    private void onInteractOnEntity(PlayerInteractEntityEvent event) {
-        if (!arena.isPlaying(event.getPlayer())) return;
-
-        if (event.getRightClicked() instanceof ItemFrame)
-            event.setCancelled(true);
-        else if (event.getRightClicked() instanceof GlowItemFrame)
-            event.setCancelled(true);
-    }
-
-    @EventHandler
     private void onSweet(PlayerHarvestBlockEvent event) {
         Player player = event.getPlayer();
         if (!arena.isInGame(player)) return;
