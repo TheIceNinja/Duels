@@ -38,7 +38,6 @@ public class RandomJoinSubCommand implements SubCommand {
 
         optionalArena.get().join(player, optionalArena);
         player.sendMessage(ColorUtils.color("&aנכנסת לארנה &2&l" + optionalArena.get().getName() + "&a."));
-
     }
 
     @Override

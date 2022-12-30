@@ -20,6 +20,7 @@ public class DeleteSubCommand implements SubCommand {
 
     @Override
     public void execute(Player player, String[] args) {
+
         if (!player.hasPermission("duels.admin")) {
             player.sendMessage(Messages.NO_PERMISSION);
             return;

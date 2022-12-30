@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 public class CreateSubCommand implements SubCommand {
 
     private final ArenaManager arenaManager;
-
     private final DuelsPlugin plugin;
 
     @Override
