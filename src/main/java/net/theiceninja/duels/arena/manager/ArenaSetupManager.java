@@ -90,7 +90,7 @@ public class ArenaSetupManager implements Listener {
             }
 
         } else if (item.isSimilar(save)) {
-            if (!(event.getAction() == Action.RIGHT_CLICK_AIR)) return;
+            if (event.getAction() != Action.RIGHT_CLICK_AIR) return;
 
             // check if the locations are null, if null player need to set them
             if (arena.getSpawnLocationOne() == null || arena.getSpawnLocationTwo() == null) {
@@ -106,6 +106,7 @@ public class ArenaSetupManager implements Listener {
             plugin.saveConfig();
             removeFromSetup(player);
         } else if (item.isSimilar(cancel)) {
+            if (event.getAction() != Action.RIGHT_CLICK_AIR) return;
             // cancel all the event and remove the arena
 
             arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
@@ -132,7 +133,8 @@ public class ArenaSetupManager implements Listener {
     private void onPlace(BlockPlaceEvent event) {
         if (!isOnSetup(event.getPlayer())) return;
 
-        if (event.getBlock().getType() == Material.GREEN_WOOL) event.setBuild(false);
+        Material material = event.getBlock().getType();
+        if (material == Material.GREEN_WOOL || material == Material.BARRIER) event.setBuild(false);
     }
 
     @EventHandler
@@ -148,9 +150,8 @@ public class ArenaSetupManager implements Listener {
         if (!isOnSetup(player)) return;
 
         ItemStack item = event.getItemDrop().getItemStack();
-        if (!item.isSimilar(cancel) || !item.isSimilar(save) || !item.isSimilar(setLocationItem)) return;
 
-        event.setCancelled(true);
+        if (item.isSimilar(cancel) || item.isSimilar(save) || item.isSimilar(setLocationItem))
+            event.setCancelled(true);
     }
-
 }
