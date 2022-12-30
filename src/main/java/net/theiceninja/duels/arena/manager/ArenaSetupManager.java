@@ -30,13 +30,13 @@ public class ArenaSetupManager implements Listener {
 
     private final Map<UUID, Arena> setup = new HashMap<>();
     private final PlayerRollBackManager rollBackManager;
+
     private final DuelsPlugin plugin;
     private final ArenaManager arenaManager;
 
     // setup items
     private ItemStack setLocationItem = ItemCreator.createItem(Material.BLAZE_ROD, 1, ColorUtils.color("&#F1CA16קביעת מיקומים &7(לחיצה ימנית/שמאלית)"));
     private ItemStack save = ItemCreator.createItem(Material.GREEN_WOOL, 1, ColorUtils.color("&#12A459שמירת ארנה &7(לחיצה ימנית)"));
-
     private ItemStack cancel = ItemCreator.createItem(Material.BARRIER, 1, ColorUtils.color("&#F03D15מחיקת ארנה &7(לחיצה ימנית)"));
 
     public void addToSetup(Player player, Arena arena) {
