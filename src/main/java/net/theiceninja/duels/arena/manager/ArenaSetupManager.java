@@ -74,6 +74,8 @@ public class ArenaSetupManager implements Listener {
     @EventHandler
     private void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!event.hasItem()) return;
+        if (!event.getItem().hasItemMeta()) return;
         if (!isOnSetup(player)) return;
 
         Arena arena = setup.get(player.getUniqueId());
