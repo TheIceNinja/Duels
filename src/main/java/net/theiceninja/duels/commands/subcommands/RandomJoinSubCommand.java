@@ -17,7 +17,10 @@ public class RandomJoinSubCommand implements SubCommand {
     @Override
     public void execute(Player player, String[] args) {
 
-        Optional<Arena> optionalArena = arenaManager.getArenas().stream().filter(arena -> arena.getArenaState() == ArenaState.DEFAULT).findAny();
+        Optional<Arena> optionalArena = arenaManager.getArenas()
+                .stream()
+                .filter(arena -> arena.getArenaState() == ArenaState.DEFAULT)
+                .findAny();
 
         if (arenaManager.getArenas().isEmpty()) {
             player.sendMessage(ColorUtils.color("&cאין שום ארנות."));
