@@ -36,7 +36,7 @@ public class DuelsPlugin extends JavaPlugin {
 
         // check if there are any arenas in the config, if there is arena load.
         if (getConfig().getConfigurationSection("arenas") != null) {
-            Bukkit.getScheduler().runTaskLater(this, () -> arenaManager.load(this), 20 * 5);
+            Bukkit.getScheduler().runTaskLater(this, () -> arenaManager.load(this), 20 * 10);
         }
     }
 
