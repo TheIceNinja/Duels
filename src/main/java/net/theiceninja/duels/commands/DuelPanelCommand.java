@@ -22,7 +22,6 @@ public class DuelPanelCommand implements CommandExecutor, TabCompleter {
     private List<SubCommand> subCommands = new ArrayList<>();
 
     public DuelPanelCommand(ArenaManager arenaManager, DuelsPlugin plugin) {
-
         subCommands.add(new CreateSubCommand(arenaManager, plugin));
         subCommands.add(new ListSubCommand(arenaManager));
         subCommands.add(new DeleteSubCommand(arenaManager, plugin));
