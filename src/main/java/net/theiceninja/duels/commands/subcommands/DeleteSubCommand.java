@@ -15,7 +15,6 @@ import java.util.Optional;
 public class DeleteSubCommand implements SubCommand {
 
     private final ArenaManager arenaManager;
-
     private final DuelsPlugin plugin;
 
     @Override

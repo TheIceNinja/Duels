@@ -5,7 +5,6 @@ import net.theiceninja.duels.arena.manager.ArenaManager;
 import net.theiceninja.duels.commands.DuelPanelCommand;
 import net.theiceninja.duels.db.Database;
 import net.theiceninja.duels.listeners.GuiListener;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DuelsPlugin extends JavaPlugin {

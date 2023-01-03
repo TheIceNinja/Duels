@@ -1,6 +1,6 @@
 package net.theiceninja.duels.commands.subcommands;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import net.theiceninja.duels.utils.ColorUtils;
@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class QuitSubCommand implements SubCommand {
 
-    private final ArenaManager arenaManager;
+    private ArenaManager arenaManager;
 
     @Override
     public void execute(Player player, String[] args) {

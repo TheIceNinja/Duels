@@ -1,7 +1,6 @@
 package net.theiceninja.duels.commands.subcommands;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import net.theiceninja.duels.utils.ColorUtils;

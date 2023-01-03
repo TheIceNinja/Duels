@@ -8,8 +8,6 @@ import net.theiceninja.duels.utils.ColorUtils;
 import net.theiceninja.duels.utils.Gui;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.GlowItemFrame;
-import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
