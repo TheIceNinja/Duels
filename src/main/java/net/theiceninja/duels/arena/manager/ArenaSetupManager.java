@@ -55,7 +55,7 @@ public class ArenaSetupManager implements Listener {
         player.sendMessage(ColorUtils.color("&#1CE446אתה עכשיו במצב יצירת ארנה!"));
     }
 
-    public void removeFromSetup(Player player) {
+    private void removeFromSetup(Player player) {
         // unregister the event (no double messages)
         HandlerList.unregisterAll(this);
 
@@ -67,7 +67,7 @@ public class ArenaSetupManager implements Listener {
         player.sendMessage(ColorUtils.color("&#F03D15ביטלת את מצב יצירת ארנה!"));
     }
 
-    public boolean isOnSetup(Player player) {
+    private boolean isOnSetup(Player player) {
         return setup.containsKey(player.getUniqueId());
     }
 
@@ -121,7 +121,8 @@ public class ArenaSetupManager implements Listener {
 
     @EventHandler
     private void onQuit(PlayerQuitEvent event) {
-        if (!isOnSetup(event.getPlayer())) return;
+        Player player = event.getPlayer();
+        if (!isOnSetup(player)) return;
 
         // if player quits the arena will be deleted
         arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
@@ -133,7 +134,8 @@ public class ArenaSetupManager implements Listener {
 
     @EventHandler
     private void onPlace(BlockPlaceEvent event) {
-        if (!isOnSetup(event.getPlayer())) return;
+        Player player = event.getPlayer();
+        if (!isOnSetup(player)) return;
 
         Material material = event.getBlock().getType();
         if (material == Material.GREEN_WOOL || material == Material.BARRIER) event.setBuild(false);
@@ -141,7 +143,8 @@ public class ArenaSetupManager implements Listener {
 
     @EventHandler
     private void onBreak(BlockBreakEvent event) {
-        if (!isOnSetup(event.getPlayer())) return;
+        Player player = event.getPlayer();
+        if (!isOnSetup(player)) return;
 
         event.setCancelled(true);
     }

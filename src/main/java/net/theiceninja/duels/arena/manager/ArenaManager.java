@@ -1,11 +1,9 @@
 package net.theiceninja.duels.arena.manager;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.listeners.ArenaListeners;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -17,7 +15,6 @@ public class ArenaManager {
 
     @Getter
     private final List<Arena> arenas = new ArrayList<>();
-
 
     // add the arena on the creation
     public void addArena(Arena arena, DuelsPlugin plugin) {
