@@ -437,8 +437,8 @@ public class  Arena {
 
             scoreboardLines.add("&fהאנשים במשחק&8:");
             scoreboardLines.add("&r");
-            scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName() + " &c" + (int) opponentOne.getHealth() + " לבבות");
-            scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName() + " &c" + (int) opponentTwo.getHealth() + " לבבות");
+            scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName() + " &c" + (int) opponentOne.getHealth() + " hearts");
+            scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName() + " &c" + (int) opponentTwo.getHealth() + " hearts");
             scoreboardLines.add("&r");
 
             if (battleTask != null)
