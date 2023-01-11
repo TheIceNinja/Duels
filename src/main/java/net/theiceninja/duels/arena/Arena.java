@@ -166,7 +166,7 @@ public class  Arena {
                 Player spectators = Bukkit.getPlayer(playerUUID);
                 if (spectators == null) return;
                 playerOne.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), spectators);
-                player.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class),spectators);
+                player.showPlayer(DuelsPlugin.getPlugin(DuelsPlugin.class), spectators);
             }
 
             // if the players size is one do stuff
@@ -224,13 +224,13 @@ public class  Arena {
                 "&cעזיבת משחק &7(לחיצה ימנית)"
         ));
 
-        /*
-                player.getInventory().setItem(0, ItemBuilder.createItem(
+
+        player.getInventory().setItem(0, ItemCreator.createItem(
                 Material.COMPASS,
                 1,
                 "&eמציאת שחקן &7(לחיצה ימנית)"
         ));
-         */
+
 
         player.sendMessage(ColorUtils.color("&aאתה עכשיו צופה באנשים שבארנה &2" + optionalArena.get().getName() + "&a."));
 
@@ -437,12 +437,12 @@ public class  Arena {
 
             scoreboardLines.add("&fהאנשים במשחק&8:");
             scoreboardLines.add("&r");
-            scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName());
-            scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName());
+            scoreboardLines.add("&fבן אדם ראשון&8: &6" + opponentOne.getDisplayName() + " &c" + (int) opponentOne.getHealth() + " לבבות");
+            scoreboardLines.add("&fבן אדם שני&8: &e" + opponentTwo.getDisplayName() + " &c" + (int) opponentTwo.getHealth() + " לבבות");
             scoreboardLines.add("&r");
 
             if (battleTask != null)
-                scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &e" + battleTask.getTimer() / 60 + "&8:&e" + battleTask.getTimer() % 60);
+                scoreboardLines.add("&fהמשחק שלהם נגמר בעוד&8: &b" + battleTask.getTimer() / 60 + "&8:&b" + battleTask.getTimer() % 60);
 
         }
 

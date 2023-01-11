@@ -51,17 +51,29 @@ public class Gui {
     public static Inventory spectatingGUI(Arena arena) {
         Inventory inventory = createInv(9, "&8מצב צופה");
 
-        for (UUID playerUUID : arena.getPlayers()) {
-            Player player = Bukkit.getPlayer(playerUUID);
+            if (arena == null || arena.getPlayers().isEmpty()) return null;
+            Player playerOne = Bukkit.getPlayer(arena.getPlayers().get(0));
+            Player playerTwo = Bukkit.getPlayer(arena.getPlayers().get(1));
+
 
             ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-            skullMeta.setOwningPlayer(player);
-            skullMeta.setDisplayName(ColorUtils.color("&a&l" + player.getName() + " &c" + player.getPlayer().getHealth()));
+            if (playerOne == null) return null;
+            skullMeta.setOwningPlayer(playerOne);
+            skullMeta.setDisplayName(ColorUtils.color("&a&l" + playerOne.getDisplayName() + " &c" + (int) playerOne.getHealth()));
             skull.setItemMeta(skullMeta);
 
-            inventory.addItem(skull);
-        }
+            inventory.setItem(0, skull);
+
+            ItemStack skullTwo = new ItemStack(Material.PLAYER_HEAD);
+            SkullMeta skullMetaTwo = (SkullMeta) skullTwo.getItemMeta();
+             if (playerTwo == null) return null;
+            skullMetaTwo.setOwningPlayer(playerTwo);
+            skullMetaTwo.setDisplayName(ColorUtils.color("&a&l" + playerTwo.getDisplayName() + " &c" + (int) playerTwo.getHealth()));
+            skullTwo.setItemMeta(skullMetaTwo);
+
+            inventory.setItem(1, skullTwo);
+
 
         inventory.setItem(8, ItemCreator.createItem(
                 Material.BARRIER,

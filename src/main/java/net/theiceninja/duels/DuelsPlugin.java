@@ -22,6 +22,7 @@ public class DuelsPlugin extends JavaPlugin {
         getConfig().options().copyDefaults(false);
         saveDefaultConfig();
 
+        getLogger().info("The plugin is enabled.");
        // connect();
 
         // playerStats = new PlayerStats();
@@ -38,7 +39,9 @@ public class DuelsPlugin extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {}
+    public void onDisable() {
+        getLogger().info("The plugin is disabled.");
+    }
 
     private void connect() {
         database = new Database("localhost", "root", "", "statistics", 3306);

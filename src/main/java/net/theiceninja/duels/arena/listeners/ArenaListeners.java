@@ -19,6 +19,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -104,20 +105,28 @@ public class ArenaListeners implements Listener {
     private void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
+        if (event.getCurrentItem() == null) return;
+        if (!event.getCurrentItem().hasItemMeta()) return;
+
         // if he is in game he cant click
         if (!getArena().isInGame(player)) return;
         event.setCancelled(true);
 
-        if (event.getView().getTitle().equalsIgnoreCase("&8מצב צופה")) {
-            for (UUID playerUUID : arena.getPlayers()) {
-                Player alivePlayer = Bukkit.getPlayer(playerUUID);
-                String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
-                if (itemName.equalsIgnoreCase(ColorUtils.color(
-                        "&a&l" + alivePlayer.getDisplayName() + " &c" + player.getHealth()
-                ))) {
-                    // soon
-                    player.sendMessage(itemName.substring(10));
-                }
+        if (event.getView().getTitle().equalsIgnoreCase(ColorUtils.color("&8מצב צופה"))) {
+
+            String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
+            UUID playerUUID1 = arena.getPlayers().get(0);
+            UUID playerUUID2 = arena.getPlayers().get(1);
+
+            if (itemName.equalsIgnoreCase(ColorUtils.color("&cסגירה"))) {
+                player.closeInventory();
+                player.sendMessage(ColorUtils.color("&cסגרת את תפריט הקרבות."));
+            } else if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + Bukkit.getPlayer(playerUUID1).getDisplayName() + " &c" + (int) player.getHealth()))) {
+                player.teleport(Bukkit.getPlayer(playerUUID1));
+                player.sendMessage(ColorUtils.color("&aהשתגרת אל &2" + Bukkit.getPlayer(playerUUID1).getDisplayName()));
+            } else if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + Bukkit.getPlayer(playerUUID2).getDisplayName() + " &c" + (int) player.getHealth()))) {
+                player.teleport(Bukkit.getPlayer(playerUUID2));
+                player.sendMessage(ColorUtils.color("&aהשתגרת אל &2" + Bukkit.getPlayer(playerUUID2).getDisplayName()));
             }
         }
     }
@@ -144,7 +153,8 @@ public class ArenaListeners implements Listener {
             }
         } else if (itemName.equalsIgnoreCase(ColorUtils.color("&eמציאת שחקן &7(לחיצה ימנית)"))) {
             // soon
-            player.openInventory(Gui.spectatingGUI(arena));
+            if (Gui.spectatingGUI(arena) == null) return;
+            player.openInventory((Gui.spectatingGUI(arena)));
         }
     }
 

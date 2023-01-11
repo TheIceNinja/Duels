@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BattleTask extends BukkitRunnable {
 
     @Getter
-    private int timer = 90;
+    private int timer = 120;
     private final Arena arena;
 
     @Override
