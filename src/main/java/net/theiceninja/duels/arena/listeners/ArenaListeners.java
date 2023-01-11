@@ -105,9 +105,6 @@ public class ArenaListeners implements Listener {
     private void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
-        if (event.getCurrentItem() == null) return;
-        if (!event.getCurrentItem().hasItemMeta()) return;
-
         // if he is in game he cant click
         if (!getArena().isInGame(player)) return;
         event.setCancelled(true);
@@ -121,10 +118,10 @@ public class ArenaListeners implements Listener {
             if (itemName.equalsIgnoreCase(ColorUtils.color("&cסגירה"))) {
                 player.closeInventory();
                 player.sendMessage(ColorUtils.color("&cסגרת את תפריט הקרבות."));
-            } else if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + Bukkit.getPlayer(playerUUID1).getDisplayName() + " &c" + (int) player.getHealth()))) {
+            } else if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + Bukkit.getPlayer(playerUUID1).getDisplayName()))) {
                 player.teleport(Bukkit.getPlayer(playerUUID1));
                 player.sendMessage(ColorUtils.color("&aהשתגרת אל &2" + Bukkit.getPlayer(playerUUID1).getDisplayName()));
-            } else if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + Bukkit.getPlayer(playerUUID2).getDisplayName() + " &c" + (int) player.getHealth()))) {
+            } else if (itemName.equalsIgnoreCase(ColorUtils.color("&a&l" + Bukkit.getPlayer(playerUUID2).getDisplayName()))) {
                 player.teleport(Bukkit.getPlayer(playerUUID2));
                 player.sendMessage(ColorUtils.color("&aהשתגרת אל &2" + Bukkit.getPlayer(playerUUID2).getDisplayName()));
             }

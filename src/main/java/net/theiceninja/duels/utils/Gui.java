@@ -60,7 +60,7 @@ public class Gui {
             SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
             if (playerOne == null) return null;
             skullMeta.setOwningPlayer(playerOne);
-            skullMeta.setDisplayName(ColorUtils.color("&a&l" + playerOne.getDisplayName() + " &c" + (int) playerOne.getHealth()));
+            skullMeta.setDisplayName(ColorUtils.color("&a&l" + playerOne.getDisplayName()));
             skull.setItemMeta(skullMeta);
 
             inventory.setItem(0, skull);
@@ -69,7 +69,7 @@ public class Gui {
             SkullMeta skullMetaTwo = (SkullMeta) skullTwo.getItemMeta();
              if (playerTwo == null) return null;
             skullMetaTwo.setOwningPlayer(playerTwo);
-            skullMetaTwo.setDisplayName(ColorUtils.color("&a&l" + playerTwo.getDisplayName() + " &c" + (int) playerTwo.getHealth()));
+            skullMetaTwo.setDisplayName(ColorUtils.color("&a&l" + playerTwo.getDisplayName()));
             skullTwo.setItemMeta(skullMetaTwo);
 
             inventory.setItem(1, skullTwo);
