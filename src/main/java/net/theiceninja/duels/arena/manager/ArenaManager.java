@@ -51,9 +51,7 @@ public class ArenaManager {
     // get the arena state with custom string
     public String getArenaStateToString(Arena arena) {
         if (arena.getArenaState() == ArenaState.DEFAULT) return "&#F3190Fמצב מכובה";
-
         if (arena.getArenaState() == ArenaState.COOLDOWN) return "&#F3C30Fמצב כוננות";
-
         if (arena.getArenaState() == ArenaState.ACTIVE) return "&#0FF319מצב פעיל";
 
         return null;
