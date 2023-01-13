@@ -1,9 +1,7 @@
 package net.theiceninja.duels;
 
-import lombok.Getter;
 import net.theiceninja.duels.arena.manager.ArenaManager;
 import net.theiceninja.duels.commands.DuelPanelCommand;
-import net.theiceninja.duels.db.Database;
 import net.theiceninja.duels.listeners.GuiListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,8 +9,8 @@ public class DuelsPlugin extends JavaPlugin {
 
     private ArenaManager arenaManager;
 
-    @Getter
-    private Database database;
+   // @Getter
+   // private Database database;
 
   //  @Getter
    // private PlayerStats playerStats;
@@ -43,10 +41,12 @@ public class DuelsPlugin extends JavaPlugin {
         getLogger().info("The plugin is disabled.");
     }
 
-    private void connect() {
+    /*
+        private void connect() {
         database = new Database("localhost", "root", "", "statistics", 3306);
         database.createTable("playerStats", "uuid VARCHAR(36) primary key, wins int, loses int");
     }
+     */
 
     private void registerCommands() {
         getCommand("duelpanel").setExecutor(new DuelPanelCommand(arenaManager, this));

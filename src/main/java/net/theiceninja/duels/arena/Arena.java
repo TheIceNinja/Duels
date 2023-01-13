@@ -2,6 +2,8 @@ package net.theiceninja.duels.arena;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.theiceninja.duels.DuelsPlugin;
 import net.theiceninja.duels.arena.listeners.ArenaListeners;
 import net.theiceninja.duels.arena.manager.*;
@@ -16,6 +18,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -319,12 +322,14 @@ public class  Arena {
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
+
             player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(str), 0, 40, 0);
         }
 
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
+
             player.sendTitle(ColorUtils.color("&#F3120F&lקרבות"), ColorUtils.color(str), 0, 40, 0);
         }
     }
@@ -462,12 +467,14 @@ public class  Arena {
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
+
             setScoreboard(player);
         }
 
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
+
             setScoreboard(player);
         }
     }
@@ -476,13 +483,32 @@ public class  Arena {
         for (UUID playerUUID : players) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
+
             player.playSound(player, sound, 1, 1);
         }
 
         for (UUID playerUUID : spectating) {
             Player player = Bukkit.getPlayer(playerUUID);
             if (player == null) continue;
+
             player.playSound(player, sound, 1, 1);
         }
+    }
+
+    public void sendActionBar(String str) {
+        for (UUID playerUUID : players) {
+            Player player = Bukkit.getPlayer(playerUUID);
+            if (player == null) continue;
+
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.color(str)));
+        }
+
+        for (UUID playerUUID : spectating) {
+            Player player = Bukkit.getPlayer(playerUUID);
+            if (player == null) continue;
+
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.color(str)));
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package net.theiceninja.duels.commands.subcommands;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.theiceninja.duels.arena.Arena;
 import net.theiceninja.duels.arena.manager.ArenaManager;
@@ -9,14 +10,13 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RandomJoinSubCommand implements SubCommand {
 
-    private final ArenaManager arenaManager;
+    private ArenaManager arenaManager;
 
     @Override
     public void execute(Player player, String[] args) {
-
         Optional<Arena> optionalArena = arenaManager.getArenas()
                 .stream()
                 .filter(arena -> arena.getArenaState() == ArenaState.DEFAULT)

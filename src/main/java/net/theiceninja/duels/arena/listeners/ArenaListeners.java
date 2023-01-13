@@ -19,7 +19,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -95,8 +94,8 @@ public class ArenaListeners implements Listener {
     @EventHandler
     private void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-
         if (!getArena().isInGame(player)) return;
+
         event.setCancelled(true);
     }
 
@@ -104,13 +103,11 @@ public class ArenaListeners implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     private void onInvClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-
         // if he is in game he cant click
         if (!getArena().isInGame(player)) return;
+
         event.setCancelled(true);
-
         if (event.getView().getTitle().equalsIgnoreCase(ColorUtils.color("&8מצב צופה"))) {
-
             String itemName = event.getCurrentItem().getItemMeta().getDisplayName();
             UUID playerUUID1 = arena.getPlayers().get(0);
             UUID playerUUID2 = arena.getPlayers().get(1);
@@ -149,8 +146,8 @@ public class ArenaListeners implements Listener {
                 }
             }
         } else if (itemName.equalsIgnoreCase(ColorUtils.color("&eמציאת שחקן &7(לחיצה ימנית)"))) {
-            // soon
             if (Gui.spectatingGUI(arena) == null) return;
+
             player.openInventory((Gui.spectatingGUI(arena)));
         }
     }
@@ -158,8 +155,8 @@ public class ArenaListeners implements Listener {
     @EventHandler
     private void onFoodLevelChange(FoodLevelChangeEvent event) {
         Player player = (Player) event.getEntity();
-
         if (!getArena().isInGame(player)) return;
+
         event.setCancelled(true);
     }
 
@@ -171,9 +168,7 @@ public class ArenaListeners implements Listener {
         // cancel all the commands accept one
         if (!event.getMessage().equalsIgnoreCase("/duelpanel quit")) {
             event.setCancelled(true);
-            player.sendMessage(ColorUtils.color(
-                    "&cאתה לא יכול לבצע את הפקודה הזאת במהלך משחק."
-            ));
+            player.sendMessage(ColorUtils.color("&cאתה לא יכול לבצע את הפקודה הזאת במהלך משחק."));
         }
     }
 
@@ -188,16 +183,16 @@ public class ArenaListeners implements Listener {
     @EventHandler
     private void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-
         if (!arena.isInGame(player)) return;
+
         event.setCancelled(true);
     }
 
     @EventHandler
     private void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-
         if (!arena.isInGame(player)) return;
+
         event.setCancelled(true);
     }
 
@@ -215,14 +210,15 @@ public class ArenaListeners implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-
         if (!arena.isInGame(player)) return;
+
         event.setCancelled(true);
     }
 
     @EventHandler
     private void onSwap(PlayerSwapHandItemsEvent event) {
         if (!getArena().isInGame(event.getPlayer())) return;
+
         event.setCancelled(true);
     }
 
@@ -230,6 +226,7 @@ public class ArenaListeners implements Listener {
     private void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         if (!getArena().isInGame(player)) return;
+
         // sending the arena messages
         arena.sendMessage(getStatePlayerEnglish(player) + player.getDisplayName() + "&8: &f" + event.getMessage());
         event.setCancelled(true);
@@ -238,7 +235,6 @@ public class ArenaListeners implements Listener {
     // gets the player state
     private String getStatePlayerEnglish(Player player) {
         if (arena.isPlaying(player)) return "&#0FE716&lAlive &#2AE886";
-
         if (getArena().isSpectating(player)) return "&#B2C2B3&lSpectator &#B2C2B3";
 
         return null;

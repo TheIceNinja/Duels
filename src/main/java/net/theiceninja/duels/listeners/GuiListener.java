@@ -18,16 +18,15 @@ public class GuiListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
+
         if (event.getCurrentItem() == null) return;
         if (!event.getCurrentItem().hasItemMeta()) return;
 
         if (event.getView().getTitle().equalsIgnoreCase(ColorUtils.color("&8ארנות"))) {
-
             String item = event.getCurrentItem().getItemMeta().getDisplayName();
 
             for (Arena arena : arenaManager.getArenas()) {
                 if (item.equalsIgnoreCase(ColorUtils.color("&bארנה&8: &6" + arena.getName()))) {
-
            if (event.getClick() == ClickType.LEFT) {
                player.performCommand("duelpanel join " + item.substring(12));
             } else if (event.getClick() == ClickType.RIGHT) {

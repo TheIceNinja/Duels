@@ -16,7 +16,6 @@ public class SpectatorSubCommand implements SubCommand {
 
     @Override
     public void execute(Player player, String[] args) {
-
         if (args.length == 1) {
             player.sendMessage(ColorUtils.color("&cאתה צריך להקליד את שם הארנה שאתה רוצה להכנס."));
             return;

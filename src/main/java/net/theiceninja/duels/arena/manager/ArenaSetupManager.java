@@ -41,9 +41,9 @@ public class ArenaSetupManager implements Listener {
 
     public void addToSetup(Player player, Arena arena) {
         // save the players and register the event (and put on the list with the arena)
+        setup.put(player.getUniqueId(), arena);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         rollBackManager.save(player);
-        setup.put(player.getUniqueId(), arena);
 
         // add items
         player.setGameMode(GameMode.CREATIVE);
@@ -125,8 +125,8 @@ public class ArenaSetupManager implements Listener {
         if (!isOnSetup(player)) return;
 
         // if player quits the arena will be deleted
-        arenaManager.getArenas().remove(setup.get(event.getPlayer().getUniqueId()));
-        removeFromSetup(event.getPlayer());
+        arenaManager.getArenas().remove(setup.get(player));
+        removeFromSetup(player);
 
         // reload the config(so the arena will not be on the config)
         plugin.reloadConfig();

@@ -13,10 +13,8 @@ public class MenuSubCommand implements SubCommand {
 
     @Override
     public void execute(Player player, String[] args) {
-
         player.openInventory(Gui.arenasList(arenaManager));
         player.sendMessage(ColorUtils.color("&aפתחת את תפריט הקרבות!"));
-
     }
 
     @Override

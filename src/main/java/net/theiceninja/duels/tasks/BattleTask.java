@@ -47,7 +47,7 @@ public class BattleTask extends BukkitRunnable {
         arena.updateScoreBoard();
 
         if (timer == 10 || timer <= 5) {
-            arena.sendMessage("&cהמשחק נגמר בעוד&8: &e" + timer);
+            arena.sendActionBar("&cהמשחק נגמר בעוד&8: &e" + timer);
             arena.playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
         }
     }
